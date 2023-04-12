@@ -1,9 +1,12 @@
 function Click(){
-	location.href = "./dispense.html";
+	location.href = "Main.html";
 }
 
+
 function startTime() {
-	
+	let hMorn = 10;
+	let mMorn = "03";
+
 
 	const today = new Date();
 	let h = today.getHours();
@@ -13,7 +16,7 @@ function startTime() {
  	s = checkTime(s);
 
 	var pname = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
- 	if(h == "09" && m == 41 && pname!="alert.html"){
+ 	if(h == hMorn && m == mMorn && pname!="alert.html"){
  			console.log("time")
  		//document.getElementById("button1").style.backgroundColor = "green";
  		location.href = "./alert.html";
@@ -23,8 +26,7 @@ function startTime() {
  	
  	document.getElementById('head').innerHTML =  h + ":" + m + ":" + s;
 	setTimeout(startTime, 1000);
- 	
- }
+ 	}
  	
 
 
@@ -34,12 +36,8 @@ function checkTime(i) {
   return i;
 }
 
-function flash(){
-	
+function editTime(button, hours, mins){
 
-	if(document.getElementbyId("body").style.backgroundColor == "white"){
-		document.getElementbyId("body").backgroundColor = "gray";
-	}else{document.getElementbyId("body").backgroundColor = "white";}
+	b = document.getElementById(button).innerHTML = formatTime(hours, mins)
 
-	
 }

@@ -1,21 +1,58 @@
 function Click(button){
 
-	el = document.getElementById(button)
-	el.classList.toggle('visible');
-
-	if(el.style.backgroundColor == "blue"){
-		
-		el.style.backgroundColor = "yellow";
-			
-	}else{
-
-		el.style.backgroundColor = "blue";
-		
+	el = document.getElementById(button);
+	
+	if(button == "button1" && getTime() == mornTime()){
+		location.href = "./alert.html";
 	}
+	if(button == "button2" && getTime() == midTime()){
+		location.href = "./alert.html";
+	}
+	if(button == "button3" && getTime() == eveTime()){
+		location.href = "./alert.html";
+	}
+	
 
 }
 
-function startTime() {
+function getTime(){
+	let today = new Date();
+
+ 	let h = today.getHours();
+ 	let m = today.getMinutes();
+
+ 	return h+""+m;
+
+}
+
+function mornTime(){
+	let hMorn = 10;
+	let mMorn = "36";
+	let time = formatTime(hMorn, mMorn);
+	
+	return time;
+
+}
+
+function midTime(){
+	let hMid = 10;
+	let mMid = "31";
+	let time = formatTime(hMid, mMid);
+	
+	return time;
+}
+
+function eveTime(){
+	let hEve = 10;
+	let mEve = "31";
+	let time = formatTime(hEve, mEve);
+	
+	return time;
+}
+
+
+function startTime(){
+	
 	const today = new Date();
 	let h = today.getHours();
 	let m = today.getMinutes();
@@ -23,24 +60,17 @@ function startTime() {
  	m = checkTime(m);
  	s = checkTime(s);
 
-	var pname = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
- 	if(h == 12 && m == 37 && pname!="alert.html"){
- 			console.log("time")
- 		//document.getElementById("button1").style.backgroundColor = "green";
- 		location.href = "./alert.html";
- 	}else if((h+""+m != "1237") && pname == "alert.html"){
- 		console.log("main")
- 		location.href = "./Main.html"
- 	}
+ 	if(getTime() == mornTime() || getTime() == midTime() || getTime() == eveTime()){
+
  		
- 	
- 	
+ 		
+ 	}
+
  	document.getElementById('head').innerHTML =  h + ":" + m + ":" + s;
 	setTimeout(startTime, 1000);
- 	}
+}
  	
-
-
+ 
 
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
