@@ -1,0 +1,45 @@
+body{
+
+	display: flex;
+	flex-direction: column;
+	height:500px;
+	width:800px;
+	margin:auto;
+
+}
+
+
+#head{
+
+	display: inline;
+	margin:auto;
+	font-size: 40px;
+
+}
+
+
+#butdiv{
+
+	display: flex;
+	justify-content: space-between;
+	width: 500px;
+	margin:auto;
+	align-content: center;
+
+}
+
+.button{
+	
+	height: 80px;
+	outline-style: solid;
+	border-radius: 10px;
+	outline-width: 2px;
+	outline-color: black;
+	background-color: blue;
+	box-shadow: 5px 5px lightgray;
+
+
+	cursor: default;
+	user-select: none;
+
+}
