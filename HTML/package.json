@@ -1,5 +1,18 @@
 {
+  "name": "HTML",
+  "productName": "HTML",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "sfran",
+  "scripts": {
+    "start": "electron ."
+  },
   "dependencies": {
-    "python-shell": "^5.0.0"
+    "python-shell": "5.0.0"
+  },
+  "devDependencies": {
+    "electron": "24.1.1"
   }
 }
