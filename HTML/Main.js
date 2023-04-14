@@ -1,11 +1,21 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const { Pool, Client } = require("pg");
+const { Notification } = require("electron");
+const client = new Client({
+    user: 'sfransen',
+    host: '10.227.221.204',
+    database: 'pillbox',
+    password: '$tephenO0',
+    port: 5432,
+})
+client.connect()
 
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    fullscreen: true,
+    fullscreen: false,
     frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
