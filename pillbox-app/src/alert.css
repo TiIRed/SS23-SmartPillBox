@@ -1,0 +1,53 @@
+body{
+
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	height:500px;
+	width:800px;
+	margin:auto;
+}
+
+#head{
+
+	display: inline;
+	margin:auto;
+	font-size: 40px;
+
+}
+
+#butdiv{
+
+	display: flex;
+	justify-content: space-around;
+	width: 500px;
+	margin:auto;
+	align-content: center;
+}
+
+
+.button{
+	
+	display:flex;
+	height: 200px;
+	width: 200px;
+	outline-style: solid;
+	border-radius: 10px;
+	outline-width: 2px;
+	outline-color: black;
+	background-color: blue;
+	box-shadow: 5px 5px lightgray;
+
+	justify-content: space-around;
+
+	cursor: default;
+	user-select: none;
+
+}
+
+h1{
+
+	height:fit-content;	
+	margin:auto;
+
+}
