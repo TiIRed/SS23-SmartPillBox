@@ -13,11 +13,46 @@ function Click(button){
 	}
 	
 
+// Modules to control application life and create native browser window
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const { Pool, Client } = require("pg");
+const { Notification } = require("electron");
+const client = new Client({
+    user: 'sfransen',
+    host: '10.227.221.204',
+    database: 'pillbox',
+    password: '$tephenO0',
+    port: 5432,
+})
+client.connect()
+
+function createWindow () {
+  // Create the browser window.
+  const mainWindow = new BrowserWindow({
+    fullscreen: false,
+    frame: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
+
+  // and load the index.html of the app.
+  mainWindow.loadFile('Setup.html')
+
+  // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
 }
 
 function getTime(){
 	let today = new Date();
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.whenReady().then(() => {
+  createWindow()
 
+<<<<<<< HEAD
  	let h = today.getHours();
  	let m = today.getMinutes();
  	let time = formatTime(h, m);
@@ -102,3 +137,21 @@ function formatTime(hours, mins){
 	return hours+""+mins;
 
 }
+=======
+  app.on('activate', function () {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+})
+
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit()
+})
+
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
+>>>>>>> 23e66b2c5afe1e6e6664e0ed497a594002cd4591
