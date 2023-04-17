@@ -11,8 +11,6 @@ function Click(button){
 	if(button == "button3" && getTime() == eveTime()){
 		location.href = "./alert.html";
 	}
-	
-
 }
 
 function getTime(){

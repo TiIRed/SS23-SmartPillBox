@@ -7,14 +7,18 @@ function inOff(id){
 	}
 
 }
-function onsubmit(){
-	let errors = [];
 
-	if (!fname | !lname | !mTime | !mdTime | !eTime){
-		errors.push("Please enter all fields")
+function errorChecking(){
+	
+	var Creds = {
+		fName: document.getElementById("fname").value,
+		lName: document.getElementById("lname").value,
+		mTime: document.getElementById("mTime").value,
+		mdTime: document.getElementById("mdTime").value,
+		eTime: document.getElementById("eTime").value,
 	}
-	new Notification({
-		title: "Please Fill Out Form Properly",
-		body: errors,
-	}).show();
-}
+
+	window.setup.sendCredentials(Creds);
+
+	location.href = "./idle.html";
+};
