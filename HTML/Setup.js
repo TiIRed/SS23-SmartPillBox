@@ -17,8 +17,12 @@ function errorChecking(){
 		mdTime: document.getElementById("mdTime").value,
 		eTime: document.getElementById("eTime").value,
 	}
+	if(!Creds.fName || !Creds.lName || !Creds.mTime || !mdTime || !eTime){
+		document.location.href = 'Setup.html';
+	}
+	else{
+		document.location.href = './idle.html';
+	}
 
 	window.setup.sendCredentials(Creds);
-
-	location.href = "./idle.html";
 };
