@@ -1,6 +1,6 @@
 {
-  "name": "ratty-effect-bounce-vwnwp",
-  "productName": "ratty-effect-bounce-vwnwp",
+  "name": "HTML",
+  "productName": "HTML",
   "description": "My Electron application description",
   "keywords": [],
   "main": "./main.js",
@@ -10,6 +10,8 @@
     "start": "electron ."
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dracula-ui": "1.0.6",
     "python-shell": "5.0.0"
   },
   "devDependencies": {

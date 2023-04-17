@@ -13,15 +13,17 @@ function errorChecking(){
 	var Creds = {
 		fName: document.getElementById("fname").value,
 		lName: document.getElementById("lname").value,
+		email: document.getElementById("email").value,
+		pswd: document.getElementById("pswd").value,
 		mTime: document.getElementById("mTime").value,
 		mdTime: document.getElementById("mdTime").value,
 		eTime: document.getElementById("eTime").value,
 	}
-	if(!Creds.fName || !Creds.lName || !Creds.mTime || !mdTime || !eTime){
-		document.location.href = 'Setup.html';
+	if(!Creds.fName || !Creds.lName || !Creds.mTime || !Creds.mdTime || !Creds.eTime || !Creds.email || !Creds.pswd){
+		window.setup.refresh();
 	}
 	else{
-		document.location.href = './idle.html';
+		window.setup.idle();
 	}
 
 	window.setup.sendCredentials(Creds);

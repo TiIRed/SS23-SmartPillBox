@@ -2,6 +2,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const { Client } = require("pg");
+const {bcrypt} = require("bcrypt");
 const client = new Client({
     user: 'sfransen',
     host: 'localhost',
@@ -53,5 +54,22 @@ app.on('window-all-closed', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on("Credentials", function(event, data) {
-  console.log(data.fName);
+  hashedPass = bcrypt.hash(data.pswd, 10);
+  
+  client.query(`INSER INTO logins (fname, lname, email, password, mtime, mdtime, etime)
+                VALUES ($1, $2, $3, $4, $5, $6, $7)
+                 RETURNING id, password`,
+                [data.fName, data.lName, data.email, hashedPass, data.mTime, data.mdTime, data.eTime], (err,results)=> {
+    if (err){
+      throw err;
+    }
+  })
+})
+
+ipcMain.on('Idle', function(event, data) {
+  mainWindow.loadFile('idle.html')
+})
+
+ipcMain.on('Setup', function(event, data) {
+  mainWindow.loadFile('Setup.html')
 })
