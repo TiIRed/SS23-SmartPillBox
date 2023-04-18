@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain, remote} = require('electron');
+const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 const path = require('path');
 const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
@@ -62,6 +62,12 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
 
     if(results.rows.length > 0){
       //message about email already used and redirct to setup screen
+      dialog.showMessageBox({
+        type: 'error',
+        buttons: ['Okay'],
+        title: 'E-mail already in use',
+        detail: 'Please use another e-mail'
+      })
     }
     else{
       client.query(`INSERT INTO logins (fname, lname, email, password, mtime, mdtime, etime)
