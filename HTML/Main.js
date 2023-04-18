@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
+const settings = require('electron-settings');
 const path = require('path');
 const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
@@ -26,8 +27,12 @@ function createWindow () {
   global.WindowID = mainWindow.id;
 
   // and load the index.html of the app.
+  if(!settings.get('user.fName')){
   mainWindow.loadFile('Setup.html')
-
+  }
+  else{
+    mainWindow.loadFile('idle.html')
+  }
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -79,6 +84,17 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
                       throw err;
                     }
                   })
+                  settings.set(
+                    'user', {
+                      fname: data.fName,
+                      lname: data.lName,
+                      email: data.email,
+                      pass: hashedPass,
+                      mTime: data.mTime,
+                      mdTime: data.mdTime,
+                      eTime: data.eTime
+                    }
+                  )
                   mainWindow = BrowserWindow.fromId(WindowID);
                   mainWindow2 = new BrowserWindow({
                     fullscreen: true,
