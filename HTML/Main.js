@@ -11,18 +11,19 @@ const client = new Client({
     port: 5432,
 })
 client.connect()
-console.log("hello")
 
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    fullscreen: false,
+    fullscreen: true,
     frame: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
     }
   })
+
+  global.WindowID = mainWindow.id;
 
   // and load the index.html of the app.
   mainWindow.loadFile('Setup.html')
@@ -65,8 +66,8 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
       dialog.showMessageBox({
         type: 'error',
         buttons: ['Okay'],
-        title: 'E-mail already in use',
-        detail: 'Please use another e-mail'
+        title: 'E-mail Is Already In Use',
+        detail: 'Please Use Another E-mail'
       })
     }
     else{
@@ -83,12 +84,36 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
 })
 
 ipcMain.on('Idle', () => {
-  mainWindow = BrowserWindow.getFocusedWindow();
-  console.log("idle")
-  mainWindow.loadFile('idle.html')
+  mainWindow = BrowserWindow.fromId(WindowID);
+  mainWindow2 = new BrowserWindow({
+    fullscreen: true,
+    frame: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+    }
+  })
+  mainWindow2.loadFile(path.join(__dirname, "./idle.html"))
+  mainWindow2.webContents.once('dom-ready', () => {
+    WindowID = mainWindow2.id;
+    mainWindow.destroy();
+  })
 })
 
 ipcMain.on('Setup', () => {
-  mainWindow = BrowserWindow.getFocusedWindow();
-  mainWindow.loadFile('Setup.html')
+  mainWindow = BrowserWindow.fromId(WindowID);
+  mainWindow2 = new BrowserWindow({
+    fullscreen: true,
+    frame: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+    }
+  })
+  mainWindow2.loadFile(path.join(__dirname, "./Setup.html"))
+  
+  mainWindow2.webContents.once('dom-ready', () => {
+    WindowID = mainWindow2.id;
+    mainWindow.destroy();
+  })
 })
