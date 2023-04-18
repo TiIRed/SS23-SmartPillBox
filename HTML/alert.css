@@ -19,6 +19,7 @@ body{
 #butdiv{
 
 	display: flex;
+	flex-direction: row;
 	justify-content: space-around;
 	width: 500px;
 	margin:auto;
@@ -29,8 +30,9 @@ body{
 .button{
 	
 	display:flex;
-	height: 200px;
+	height: 75px;
 	width: 200px;
+	margin: auto;
 	outline-style: solid;
 	border-radius: 10px;
 	outline-width: 2px;
@@ -50,4 +52,8 @@ h1{
 	height:fit-content;	
 	margin:auto;
 
+}
+
+li{
+	font-size: 24px;
 }
