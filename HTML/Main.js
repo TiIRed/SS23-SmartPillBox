@@ -1,8 +1,8 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain} = require('electron');
+const {app, BrowserWindow, ipcMain, remote} = require('electron');
 const path = require('path');
 const { Client } = require("pg");
-const {bcrypt} = require("bcrypt");
+const bcrypt = require('bcryptjs');
 const client = new Client({
     user: 'sfransen',
     host: 'localhost',
@@ -17,7 +17,7 @@ function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     fullscreen: false,
-    frame: false,
+    frame: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -37,39 +37,52 @@ function createWindow () {
 app.whenReady().then(() => {
   createWindow()
 
-  app.on('activate', function () {
+  app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
-
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-ipcMain.on("Credentials", function(event, data) {
-  hashedPass = bcrypt.hash(data.pswd, 10);
-  
-  client.query(`INSER INTO logins (fname, lname, email, password, mtime, mdtime, etime)
+ipcMain.on("Credentials", async function(event, data) {
+hashedPass = await bcrypt.hash(data.pswd, 10);
+  client.query(`SELECT * FROM logins WHERE email = $1`, [data.email], (err, results) => {
+    if(err){
+      console.log(err);
+    }
+    console.log(results.rows);
+
+    if(results.rows.length > 0){
+      //message about email already used and redirct to setup screen
+    }
+    else{
+      client.query(`INSERT INTO logins (fname, lname, email, password, mtime, mdtime, etime)
                 VALUES ($1, $2, $3, $4, $5, $6, $7)
                  RETURNING id, password`,
                 [data.fName, data.lName, data.email, hashedPass, data.mTime, data.mdTime, data.eTime], (err,results)=> {
-    if (err){
-      throw err;
-    }
-  })
+                    if (err){
+                      throw err;
+                    }
+                  })
+        }
+    }) 
 })
 
-ipcMain.on('Idle', function(event, data) {
+ipcMain.on('Idle', () => {
+  mainWindow = BrowserWindow.getFocusedWindow();
+  console.log("idle")
   mainWindow.loadFile('idle.html')
 })
 
-ipcMain.on('Setup', function(event, data) {
+ipcMain.on('Setup', () => {
+  mainWindow = BrowserWindow.getFocusedWindow();
   mainWindow.loadFile('Setup.html')
 })

@@ -23,8 +23,7 @@ function errorChecking(){
 		window.setup.refresh();
 	}
 	else{
+		window.setup.sendCredentials(Creds);
 		window.setup.idle();
 	}
-
-	window.setup.sendCredentials(Creds);
 };

@@ -12,7 +12,8 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dracula-ui": "1.0.6",
-    "python-shell": "5.0.0"
+    "python-shell": "5.0.0",
+    "bcryptjs": "2.4.3"
   },
   "devDependencies": {
     "electron": "24.1.1"
