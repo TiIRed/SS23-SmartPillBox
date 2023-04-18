@@ -9,21 +9,26 @@ function inOff(id){
 }
 
 function errorChecking(){
-	
+	let error = [];
 	var Creds = {
 		fName: document.getElementById("fname").value,
 		lName: document.getElementById("lname").value,
 		email: document.getElementById("email").value,
 		pswd: document.getElementById("pswd").value,
+		pswd2: document.getElementById("pswd2").value,
 		mTime: document.getElementById("mTime").value,
 		mdTime: document.getElementById("mdTime").value,
 		eTime: document.getElementById("eTime").value,
 	}
-	if(!Creds.fName || !Creds.lName || !Creds.mTime || !Creds.mdTime || !Creds.eTime || !Creds.email || !Creds.pswd){
-		window.setup.refresh();
+	if(!Creds.fName || !Creds.lName || !Creds.mTime || !Creds.mdTime || !Creds.eTime || !Creds.email || !Creds.pswd || !Creds.pswd2){
+		error.push("Please fill entire form.");
+		window.setup.refresh(error);
+	}
+	else if(Creds.pswd != Creds.pswd2){
+		error.push("Your Passwords do not match")
+		window.setup.refresh(error);
 	}
 	else{
 		window.setup.sendCredentials(Creds);
-		window.setup.idle();
 	}
 };

@@ -79,41 +79,29 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
                       throw err;
                     }
                   })
+                  mainWindow = BrowserWindow.fromId(WindowID);
+                  mainWindow2 = new BrowserWindow({
+                    fullscreen: true,
+                    frame: true,
+                    webPreferences: {
+                      preload: path.join(__dirname, 'preload.js'),
+                      nodeIntegration: true,
+                    }
+                  })
+                  mainWindow2.loadFile(path.join(__dirname, "./idle.html"))
+                  mainWindow2.webContents.once('dom-ready', () => {
+                    WindowID = mainWindow2.id;
+                    mainWindow.destroy();
+                  })
         }
     }) 
 })
 
-ipcMain.on('Idle', () => {
-  mainWindow = BrowserWindow.fromId(WindowID);
-  mainWindow2 = new BrowserWindow({
-    fullscreen: true,
-    frame: true,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-    }
-  })
-  mainWindow2.loadFile(path.join(__dirname, "./idle.html"))
-  mainWindow2.webContents.once('dom-ready', () => {
-    WindowID = mainWindow2.id;
-    mainWindow.destroy();
-  })
-})
-
-ipcMain.on('Setup', () => {
-  mainWindow = BrowserWindow.fromId(WindowID);
-  mainWindow2 = new BrowserWindow({
-    fullscreen: true,
-    frame: true,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-    }
-  })
-  mainWindow2.loadFile(path.join(__dirname, "./Setup.html"))
-  
-  mainWindow2.webContents.once('dom-ready', () => {
-    WindowID = mainWindow2.id;
-    mainWindow.destroy();
+ipcMain.on('Setup', (event, data) => {
+  dialog.showMessageBox({
+    type: 'error',
+    buttons: ['Okay'],
+    title: 'Please Fix Errors',
+    detail: data.toString(),
   })
 })
