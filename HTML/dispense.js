@@ -1,4 +1,12 @@
+function initial(){
+
+	fillMedList();
+	startTime();
+}
+
+
 function Click(){
+	dispense();
 	location.href = "Main.html";
 }
 
@@ -41,3 +49,21 @@ function editTime(button, hours, mins){
 	b = document.getElementById(button).innerHTML = formatTime(hours, mins)
 
 }
+
+
+
+//pass array of medications into function to add list into html to be displayed
+function fillMedList(){
+
+	med = document.getElementById('med');
+
+	const medlist = ["medication a", "medication b", "medication c"];
+
+	for (var i = 0; i < medlist.length; i++) {
+		med.innerHTML += "<li>" + medlist[i] + "</li>";
+	}
+
+}
+
+
+
