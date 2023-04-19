@@ -117,6 +117,7 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
     }) 
 })
 
+
 ipcMain.on('Setup', (event, data) => {
   dialog.showMessageBox({
     type: 'error',
@@ -124,4 +125,24 @@ ipcMain.on('Setup', (event, data) => {
     title: 'Please Fix Errors',
     detail: data.toString(),
   })
+})
+
+ipcMain.on('Dispense', () => {
+  const {PythonShell} = require('python-shell');
+   
+  let pyshell = new PythonShell('script.py');
+   
+  pyshell.on('message', function(message) {
+    console.log(message);
+  })
+   
+  pyshell.end(function (err) {
+    if (err){
+      throw err;
+    };
+    console.log('finished');
+});
+
+
+
 })

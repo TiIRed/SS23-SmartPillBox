@@ -10,6 +10,12 @@ function Click(){
 	location.href = "Main.html";
 }
 
+function dispense(){
+
+	window.setup.dispense();
+
+}
+
 
 function startTime() {
 	let hMorn = 10;

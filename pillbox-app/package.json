@@ -18,7 +18,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "bcryptjs": "^2.4.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.1.0",
+    "pg": "^8.10.0",
+    "python-shell": "^5.0.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",
@@ -26,6 +30,6 @@
     "@electron-forge/maker-rpm": "^6.1.1",
     "@electron-forge/maker-squirrel": "^6.1.1",
     "@electron-forge/maker-zip": "^6.1.1",
-    "electron": "24.1.1"
+    "electron": "24.1.2"
   }
 }

@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld(
 	{
 		sendCredentials: (data) => ipcRenderer.send('Credentials', data),
 		idle: () => ipcRenderer.send('Idle', 0),
-		refresh: (data) => ipcRenderer.send('Setup', data)
+		refresh: (data) => ipcRenderer.send('Setup', data),
+		dispense: (data) => ipcRenderer.send('Dispense', data)
 	}
 )
