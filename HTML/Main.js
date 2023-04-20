@@ -6,7 +6,7 @@ const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
 const client = new Client({
     user: 'sfransen',
-    host: 'localhost',
+    host: '10.227.9.65',
     database: 'pillbox',
     password: '$tephenO0',
     port: 5432,
@@ -18,27 +18,26 @@ const store = new Store();
 async function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    fullscreen: true,
+    fullscreen: false,
     frame: true,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
+      contextIsolation: false
     }
   })
 
   global.WindowID = mainWindow.id;
-  checkName = await store.get('user.fName')
+  checkName = await store.get('user.fname')
   // and load the index.html of the app.
   if(checkName == undefined){
-    console.log(checkName)
     mainWindow.loadFile('Setup.html')
   }
   else{
     mainWindow.loadFile('idle.html')
-    console.log(checkName)
   }
+
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -89,16 +88,15 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
                     }
                   })
                   store.set({
-                    user: {
-                      fname: data.fName,
-                      lname: data.lName,
-                      email: data.email,
-                      pass: hashedPass,
-                      mTime: data.mTime,
-                      mdTime: data.mdTime,
-                      eTime: data.eTime
-                    }
+                    'user.fname': data.fName,
+                    'user.lname': data.lName,
+                    'user.email': data.email,
+                    'user.pass': hashedPass,
+                    'user.mTime': data.mTime,
+                    'user.mdTime': data.mdTime,
+                    'user.eTime': data.eTime
                   })
+                  
                   mainWindow = BrowserWindow.fromId(WindowID);
                   mainWindow2 = new BrowserWindow({
                     fullscreen: true,
@@ -107,11 +105,6 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
                       preload: path.join(__dirname, 'preload.js'),
                       nodeIntegration: true,
                     }
-                  })
-                  mainWindow2.loadFile(path.join(__dirname, "./idle.html"))
-                  mainWindow2.webContents.once('dom-ready', () => {
-                    WindowID = mainWindow2.id;
-                    mainWindow.destroy();
                   })
         }
     }) 
@@ -142,7 +135,16 @@ ipcMain.on('Dispense', () => {
     };
     console.log('finished');
 });
+})
 
+ipcMain.on('timeRequest', async () => {
+  mainWindow = BrowserWindow.fromId(WindowID);
+  console.log("sending")
+  morn = await store.get('user.mTime')
+  mid = await store.get('user.mdTime')
+  eve = await store.get('user.eTime')
+  times = [morn, mid, eve]
 
-
+  mainWindow.webContents.send('sets', times);
+  console.log("sent " + times)
 })

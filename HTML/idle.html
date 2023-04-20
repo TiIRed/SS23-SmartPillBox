@@ -3,22 +3,23 @@
 <head>
 <title>Main</title>
 <link rel="stylesheet" href="./idle.css" >
+<link rel="stylesheet" href="node_modules/dracula-ui/styles/dracula-ui.css" />
 </head>
-<body onload="startTime()">
+<body onload="grabTimes()">
 
-<div id="head"></div>
+<div id="head" class="drac-text drac-text-black drac-text-lg"></div>
 <div id="butdiv">
 
-	<div class="button" id="button1" onclick="Click('button1')">
-		<h1>unclicked</h1>
+	<div class="drac-box drac-bg-cyan drac-rounded-lg drac-p-md">
+		<span class="drac-text drac-text-lg drac-line-height drac-text-black" id="button1">mornTime</span>
 	</div>
 
-	<div class="button" id="button2">
-		<h1>unclicked</h1>
+	<div class="drac-box drac-bg-cyan drac-rounded-lg drac-p-md">
+		<span class="drac-text drac-text-lg drac-line-height drac-text-black" id="button2">midTime</span>
 	</div>
 
-	<div class="button" id="button3" onclick="Click('button3')">
-		<h1>unclicked</h1>
+	<div class="drac-box drac-bg-cyan drac-rounded-lg drac-p-md">
+		<span class="drac-text drac-text-lg drac-line-height drac-text-black" id="button3">eveTime</span>
 	</div>
 
 </div>

@@ -1,17 +1,4 @@
-function Click(button){
-
-	el = document.getElementById(button);
-	
-	if(button == "button1" && getTime() == mornTime()){
-		location.href = "./alert.html";
-	}
-	if(button == "button2" && getTime() == midTime()){
-		location.href = "./alert.html";
-	}
-	if(button == "button3" && getTime() == eveTime()){
-		location.href = "./alert.html";
-	}
-}
+const { ipcRenderer } = require("electron");
 
 function getTime(){
 	let today = new Date();
@@ -48,7 +35,6 @@ function eveTime(){
 	return time;
 }
 
-
 function startTime(){
 	
 	const today = new Date();
@@ -58,17 +44,28 @@ function startTime(){
  	m = checkTime(m);
  	s = checkTime(s);
 
- 	if(getTime() == mornTime() || getTime() == midTime() || getTime() == eveTime()){
 
- 		
- 		
- 	}
+ 	
 
  	document.getElementById('head').innerHTML =  h + ":" + m + ":" + s;
 	setTimeout(startTime, 1000);
+	
 }
- 	
- 
+
+function grabTimes(){
+	startTime();
+	console.log("im here")
+	ipcRenderer.send('timeRequest', 0)	
+}
+
+ipcRenderer.on('sets', (event, data) => {
+	times = data;
+	console.log(times)
+
+	document.getElementById("button1").textContent = times[0] + ":00";
+	document.getElementById("button2").innerHTML = times[1] + ":00";
+	document.getElementById("button3").innerText = times[2] + ":00";
+})
 
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10

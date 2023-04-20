@@ -1,3 +1,5 @@
+const { ipcRenderer } = require("electron");
+
 function initial(){
 
 	fillMedList();
@@ -12,7 +14,7 @@ function Click(){
 
 function dispense(){
 
-	window.setup.dispense();
+	ipcRenderer.send('Dispense', data);
 
 }
 

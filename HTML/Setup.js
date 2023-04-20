@@ -1,3 +1,5 @@
+const { ipcRenderer } = require("electron");
+
 function inOff(id){
 
 	if(document.getElementById(id).disabled == true){
@@ -22,13 +24,13 @@ function errorChecking(){
 	}
 	if(!Creds.fName || !Creds.lName || !Creds.mTime || !Creds.mdTime || !Creds.eTime || !Creds.email || !Creds.pswd || !Creds.pswd2){
 		error.push("Please fill entire form.");
-		window.setup.refresh(error);
+		ipcRenderer.send('Setup', error);
 	}
 	else if(Creds.pswd != Creds.pswd2){
 		error.push("Your Passwords do not match")
-		window.setup.refresh(error);
+		ipcRenderer.send('Setup', error);
 	}
 	else{
-		window.setup.sendCredentials(Creds);
+		ipcRenderer.send('Credentials', Creds)
 	}
 };
