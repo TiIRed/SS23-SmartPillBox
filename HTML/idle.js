@@ -1,3 +1,15 @@
+function load(){
+	fillTimes();
+
+}
+
+function fillTime(){
+
+
+
+	
+}
+
 function Click(button){
 
 	el = document.getElementById(button);

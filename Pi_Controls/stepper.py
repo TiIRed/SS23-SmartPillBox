@@ -48,9 +48,7 @@ def backwards(delay, steps):
  
 if __name__ == '__main__':
    
-    delay = input("Time Delay (ms)?")
-    steps = input("How many steps forward? ")
+    delay = input()
+    steps = input()
     forward(int(delay) / 1000.0, int(steps))
-    steps = input("How many steps backwards? ")
-    backwards(int(delay) / 1000.0, int(steps))
  

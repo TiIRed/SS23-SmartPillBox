@@ -1,7 +1,9 @@
 const {PythonShell} = require('python-shell');
  
-let pyshell = new PythonShell('script.py');
+let pyshell = new PythonShell('stepper.py');
  
+pyshell.send("hello\n");
+
 pyshell.on('message', function(message) {
   console.log(message);
 })
