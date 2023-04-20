@@ -35,7 +35,7 @@ async function createWindow () {
     mainWindow.loadFile('Setup.html')
   }
   else{
-    mainWindow.loadFile('idle.html')
+    mainWindow.loadFile('alert.html')
   }
 
   // Open the DevTools.

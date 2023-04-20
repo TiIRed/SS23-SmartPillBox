@@ -4,15 +4,14 @@
 <title>Page Title</title>
 <link rel="stylesheet" href="./alert.css" >
 </head>
+<link rel="stylesheet" href="node_modules/dracula-ui/styles/dracula-ui.css" />
 <body onload="letsgetitstarted()" id="body">
 
 
-<div id="head"></div>
-<div id="butdiv">
-	
-	<div class="button" id="button1" onclick="Click()"><h1>Alert!!!</h1></div>
-
-</div>
+<div id="head" class="drac-text drac-text-lg drac-text-black"></div>
+<div class="drac-box drac-bg-yellow drac-rounded-lg drac-text-center drac-p-md" id="button1bod" onclick="Click()">
+		<span class="drac-text drac-text-lg drac-line-height  drac-text-black " id="button1">Alert!!!</span>
+	</div>
 
 <script src="alert.js"></script>
 
