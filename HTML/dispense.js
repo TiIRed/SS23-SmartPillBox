@@ -9,7 +9,7 @@ function initial(){
 
 function Click(){
 	dispense();
-	location.href = "Main.html";
+	location.href = "idle.html";
 }
 
 function dispense(){
@@ -31,19 +31,11 @@ function startTime() {
  	m = checkTime(m);
  	s = checkTime(s);
 
-	var pname = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
- 	if(h == hMorn && m == mMorn && pname!="alert.html"){
- 			console.log("time")
- 		//document.getElementById("button1").style.backgroundColor = "green";
- 		location.href = "./alert.html";
- 	}
- 		
- 	
- 	
+
  	document.getElementById('head').innerHTML =  h + ":" + m + ":" + s;
 	setTimeout(startTime, 1000);
  	}
- 	
+ 
 
 
 

@@ -123,8 +123,10 @@ ipcMain.on('Setup', (event, data) => {
 ipcMain.on('Dispense', () => {
   const {PythonShell} = require('python-shell');
    
-  let pyshell = new PythonShell('script.py');
+  let pyshell = new PythonShell('stepper.py');
    
+  pyshell.send("1" + "\n" + "23");
+
   pyshell.on('message', function(message) {
     console.log(message);
   })
