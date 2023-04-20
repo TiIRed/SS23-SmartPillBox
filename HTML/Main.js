@@ -145,6 +145,4 @@ ipcMain.on('Dispense', () => {
     console.log('finished');
 });
 
-
-
 })

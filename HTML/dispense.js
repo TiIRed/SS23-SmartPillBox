@@ -7,12 +7,12 @@ function initial(){
 
 function Click(){
 	dispense();
-	//location.href = "Main.html";
+	location.href = "idle.html";
 }
 
 function dispense(){
 
-	window.setup.dispense();
+//	window.setup.dispense();
 
 }
 
