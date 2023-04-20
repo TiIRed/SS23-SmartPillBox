@@ -2,6 +2,7 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 const Store = require('electron-store');
 const path = require('path');
+const sound = require("sound-play");
 const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
 const {PythonShell} = require('python-shell');
@@ -137,12 +138,15 @@ ipcMain.on('Dispense', () => {
 
 ipcMain.on('timeRequest', async () => {
   mainWindow = BrowserWindow.fromId(WindowID);
-  console.log("sending")
   morn = await store.get('user.mTime')
   mid = await store.get('user.mdTime')
   eve = await store.get('user.eTime')
   times = [morn, mid, eve]
-
   mainWindow.webContents.send('sets', times);
-  console.log("sent " + times)
+})
+
+ipcMain.on('alert', () => {
+  console.log("Sephiroth")
+  soundpath = path.join(__dirname, "alert.mp3");
+  sound.play(soundpath, 1)
 })

@@ -1,3 +1,5 @@
+const { ipcRenderer } = require("electron");
+
 function Click(){
 	location.href = "./dispense.html";
 }
@@ -12,22 +14,17 @@ function startTime() {
  	m = checkTime(m);
  	s = checkTime(s);
 
-	var pname = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
- 	if(h == "09" && m == 41 && pname!="alert.html"){
- 			console.log("time")
- 		//document.getElementById("button1").style.backgroundColor = "green";
- 		location.href = "./alert.html";
- 	}
- 		
- 	
- 	
  	document.getElementById('head').innerHTML =  h + ":" + m + ":" + s;
 	setTimeout(startTime, 1000);
  	
  }
+
+ function letsgetitstarted(){
+	console.log("sending")
+	ipcRenderer.send('alert', 0);
+	startTime();
+ }
  	
-
-
 
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10

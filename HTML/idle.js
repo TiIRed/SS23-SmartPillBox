@@ -62,15 +62,20 @@ function startTime(){
 }
 
 function prideWeek(clock){
-	if (clock > (times[0] + ":00")){
-		if(clock < (times[1] + ":00")){
-			if(clock < (times[2] + ":00")){
+	
+	if (clock == times[0] || clock == times[1] || clock == times[2]){
+		location.href = "alert.html"
+	}
+	
+	if (clock > (times[0])){
+		if(clock < (times[1])){
+			if(clock < (times[2])){
 				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button2bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
 			}
 		}
 		else{
-			if(clock < (times[2] + ":00")){
+			if(clock < (times[2])){
 				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button3bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
@@ -92,8 +97,7 @@ function grabTimes(){
 }
 
 ipcRenderer.on('sets', (event, data) => {
-	times = data;
-	console.log(times)
+	times = ["08:00:00", "13:00:00", "16:55:00"];
 
 	document.getElementById("button1").textContent = times[0] + ":00";
 	document.getElementById("button2").innerHTML = times[1] + ":00";
