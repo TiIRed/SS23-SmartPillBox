@@ -1,5 +1,9 @@
 const { ipcRenderer } = require("electron");
 
+let times = []
+let clock = ""
+
+
 function getTime(){
 	let today = new Date();
 
@@ -18,6 +22,10 @@ function mornTime(){
 	
 	return time;
 
+}
+
+function clicky(){
+	location.href = "dispense.html"
 }
 
 function midTime(){
@@ -43,15 +51,39 @@ function startTime(){
 	let m = today.getMinutes();
 	let s = today.getSeconds();
  	m = checkTime(m);
- 	s = checkTime(s);
+ 	s = checkTime(s); 	
 
+	clock = h + ":" + m + ":" + s;
 
- 	
-
- 	document.getElementById('head').innerHTML =  h + ":" + m + ":" + s;
+ 	document.getElementById('head').innerHTML = clock;
+	prideWeek(clock);
 	setTimeout(startTime, 1000);
 	
 }
+
+function prideWeek(clock){
+	if (clock > (times[0] + ":00")){
+		if(clock < (times[1] + ":00")){
+			if(clock < (times[2] + ":00")){
+				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+				document.getElementById("button2bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
+			}
+		}
+		else{
+			if(clock < (times[2] + ":00")){
+				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+				document.getElementById("button3bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
+			}
+			else{
+				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+				document.getElementById("button3bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+			}
+		}
+	}
+}
+
 
 function grabTimes(){
 	startTime();
@@ -74,10 +106,9 @@ function checkTime(i) {
 }
 
 function editTime(button, hours, mins){
-
 	b = document.getElementById(button).innerHTML = formatTime(hours, mins)
-
 }
+
 
 
 function formatTime(hours, mins){

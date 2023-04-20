@@ -4,6 +4,7 @@ const Store = require('electron-store');
 const path = require('path');
 const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
+const {PythonShell} = require('python-shell');
 const client = new Client({
     user: 'sfransen',
     host: '10.227.9.65',
@@ -37,7 +38,7 @@ async function createWindow () {
   }
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -120,23 +121,18 @@ ipcMain.on('Setup', (event, data) => {
   })
 })
 
-ipcMain.on('Dispense', () => {
-  const {PythonShell} = require('python-shell');
-   
-  let pyshell = new PythonShell('stepper.py');
-   
-  pyshell.send("1" + "\n" + "23");
-
-  pyshell.on('message', function(message) {
-    console.log(message);
+ipcMain.on('Dispense', () => {   
+  
+  PythonShell.run('step_1.py', null).then(messages => {
+    console.log("movin");
   })
    
-  pyshell.end(function (err) {
-    if (err){
-      throw err;
-    };
-    console.log('finished');
-});
+  // pyshell.send("1" + "\n" + "23");
+
+  // pyshell.on('message', function(message) {
+  //   console.log(message);
+  // })
+  
 })
 
 ipcMain.on('timeRequest', async () => {

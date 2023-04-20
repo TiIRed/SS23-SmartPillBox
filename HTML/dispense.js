@@ -14,23 +14,18 @@ function Click(){
 
 function dispense(){
 
-	ipcRenderer.send('Dispense', data);
+	ipcRenderer.send('Dispense', 0);
 
 }
 
 
 function startTime() {
-	let hMorn = 10;
-	let mMorn = "03";
-
-
 	const today = new Date();
 	let h = today.getHours();
 	let m = today.getMinutes();
 	let s = today.getSeconds();
  	m = checkTime(m);
  	s = checkTime(s);
-
 
  	document.getElementById('head').innerHTML =  h + ":" + m + ":" + s;
 	setTimeout(startTime, 1000);
