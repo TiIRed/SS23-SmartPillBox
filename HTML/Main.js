@@ -155,57 +155,60 @@ ipcMain.on('alert', () => {
 
 ipcMain.on('email', () => {
   vkb = null;
-              mainWindow = BrowserWindow.fromId(WindowID);
-              mainWindow2 = new BrowserWindow({
-                fullscreen: false,
-                frame: true,
-                webPreferences: {
-                  nodeIntegration: true,
-                  contextIsolation: false
-                }
-              })
-              mainWindow2.loadFile(path.join(__dirname, 'setupEmail.html'))
-                  mainWindow2.webContents.on('dom-ready', () => {
-                    WindowID = mainWindow2.id;
-                    vkb = new VirtualKeyboard(mainWindow2.webContents);
-                    mainWindow.destroy();
-                  })
+  mainWindow = BrowserWindow.fromId(WindowID);
+  mainWindow2 = new BrowserWindow({
+    fullscreen: false,
+    frame: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  })
+  WindowID = mainWindow2.id;
+  mainWindow2.loadFile(path.join(__dirname, 'setupEmail.html'))
+      mainWindow2.webContents.on('dom-ready', () => {
+        mainWindow = null;
+      })
 })
 
 ipcMain.on('secret', () => {
   vkb = null;
   mainWindow = BrowserWindow.fromId(WindowID);
-              mainWindow2 = new BrowserWindow({
-                fullscreen: false,
-                frame: true,
-                webPreferences: {
-                  nodeIntegration: true,
-                  contextIsolation: false
-                }
-              })
-              mainWindow2.loadFile(path.join(__dirname, 'setupPswd.html'))
-                  mainWindow2.webContents.on('dom-ready', () => {
-                    WindowID = mainWindow2.id;
-                    vkb = new VirtualKeyboard(mainWindow2.webContents);
-                    mainWindow.destroy();
-                  })
+  mainWindow2 = new BrowserWindow({
+    fullscreen: false,
+    frame: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  })
+  mainWindow2.loadFile(path.join(__dirname, 'setupPswd.html'))
+  mainWindow2.webContents.on('dom-ready', () => {
+    WindowID = mainWindow2.id;
+    mainWindow = null;
+  })
 })
 
 ipcMain.on('time', () => {
   vkb = null;
   mainWindow = BrowserWindow.fromId(WindowID);
-              mainWindow2 = new BrowserWindow({
-                fullscreen: false,
-                frame: true,
-                webPreferences: {
-                  nodeIntegration: true,
-                  contextIsolation: false
-                }
-              })
-              mainWindow2.loadFile(path.join(__dirname, 'setupTime.html'))
-                  mainWindow2.webContents.on('dom-ready', () => {
-                    WindowID = mainWindow2.id;
-                    vkb = new VirtualKeyboard(mainWindow2.webContents);
-                    mainWindow.destroy();
-                  })
+  mainWindow2 = new BrowserWindow({
+    fullscreen: false,
+    frame: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  })
+  mainWindow2.loadFile(path.join(__dirname, 'setupTime.html'))
+  mainWindow2.webContents.on('dom-ready', () => {
+    WindowID = mainWindow2.id;
+    mainWindow = null;
+  })
+})
+
+ipcMain.on('key', () => {
+  mainWindow = BrowserWindow.fromId(WindowID);
+  vkb = new VirtualKeyboard(mainWindow.webContents);
+  mainWindow.webContents.send('keyreturn', 0);
 })

@@ -2,7 +2,9 @@ const { ipcRenderer } = require("electron");
 var jQuery = $ = require('jquery');
 require('electron-virtual-keyboard/client')(window, jQuery);
 
-var keyboard = $('input:password').keyboard();
+function onLoad(){
+	ipcRenderer.send('key', 0);
+}
 
 let error = []
 
@@ -20,3 +22,7 @@ function onSub(){
 		ipcRenderer.send('time', 0)
 	}
 }
+
+ipcRenderer.on('keyreturn', () => {
+	var keyboard = $('input:password').keyboard();
+})
