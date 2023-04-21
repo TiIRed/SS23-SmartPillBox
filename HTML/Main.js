@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
+const VirtualKeyboard = require('electron-virtual-keyboard');
 const Store = require('electron-store');
 const path = require('path');
 const sound = require("sound-play");
@@ -14,6 +15,8 @@ const client = new Client({
     port: 5432,
 })
 client.connect()
+
+let vkb;
 
 const store = new Store();
 
@@ -32,11 +35,13 @@ async function createWindow () {
   checkName = await store.get('user.fname')
   // and load the index.html of the app.
   if(checkName == undefined){
-    mainWindow.loadFile('Setup.html')
+    mainWindow.loadFile('setupName.html')
   }
   else{
     mainWindow.loadFile('idle.html')
   }
+
+  vkb = new VirtualKeyboard(mainWindow.webContents);
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
@@ -64,6 +69,7 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on("Credentials", async function(event, data) {
+
 hashedPass = await bcrypt.hash(data.pswd, 10);
   client.query(`SELECT * FROM logins WHERE email = $1`, [data.email], (err, results) => {
     if(err){
@@ -101,19 +107,23 @@ hashedPass = await bcrypt.hash(data.pswd, 10);
                   
                   mainWindow = BrowserWindow.fromId(WindowID);
                   mainWindow2 = new BrowserWindow({
-                    fullscreen: true,
+                    fullscreen: false,
                     frame: true,
                     webPreferences: {
                       preload: path.join(__dirname, 'preload.js'),
                       nodeIntegration: true,
                     }
                   })
+                  mainWindow2.loadFile(path.join(__dirname, 'idle.html'))
+                  mainWindow2.webContents.on('dom-ready', () => {
+                    WindowID = mainWindow2.id;
+                    mainWindow.destroy();
+                  })
         }
     }) 
 })
 
-
-ipcMain.on('Setup', (event, data) => {
+ipcMain.on('pass', (event, data) => {
   dialog.showMessageBox({
     type: 'error',
     buttons: ['Okay'],
@@ -122,18 +132,10 @@ ipcMain.on('Setup', (event, data) => {
   })
 })
 
-ipcMain.on('Dispense', () => {   
-  
+ipcMain.on('Dispense', () => {    
   PythonShell.run('step_1.py', null).then(messages => {
     console.log("movin");
   })
-   
-  // pyshell.send("1" + "\n" + "23");
-
-  // pyshell.on('message', function(message) {
-  //   console.log(message);
-  // })
-  
 })
 
 ipcMain.on('timeRequest', async () => {
@@ -149,4 +151,61 @@ ipcMain.on('alert', () => {
   console.log("Sephiroth")
   soundpath = path.join(__dirname, "alert.mp3");
   sound.play(soundpath, 1)
+})
+
+ipcMain.on('email', () => {
+  vkb = null;
+              mainWindow = BrowserWindow.fromId(WindowID);
+              mainWindow2 = new BrowserWindow({
+                fullscreen: false,
+                frame: true,
+                webPreferences: {
+                  nodeIntegration: true,
+                  contextIsolation: false
+                }
+              })
+              mainWindow2.loadFile(path.join(__dirname, 'setupEmail.html'))
+                  mainWindow2.webContents.on('dom-ready', () => {
+                    WindowID = mainWindow2.id;
+                    vkb = new VirtualKeyboard(mainWindow2.webContents);
+                    mainWindow.destroy();
+                  })
+})
+
+ipcMain.on('secret', () => {
+  vkb = null;
+  mainWindow = BrowserWindow.fromId(WindowID);
+              mainWindow2 = new BrowserWindow({
+                fullscreen: false,
+                frame: true,
+                webPreferences: {
+                  nodeIntegration: true,
+                  contextIsolation: false
+                }
+              })
+              mainWindow2.loadFile(path.join(__dirname, 'setupPswd.html'))
+                  mainWindow2.webContents.on('dom-ready', () => {
+                    WindowID = mainWindow2.id;
+                    vkb = new VirtualKeyboard(mainWindow2.webContents);
+                    mainWindow.destroy();
+                  })
+})
+
+ipcMain.on('time', () => {
+  vkb = null;
+  mainWindow = BrowserWindow.fromId(WindowID);
+              mainWindow2 = new BrowserWindow({
+                fullscreen: false,
+                frame: true,
+                webPreferences: {
+                  nodeIntegration: true,
+                  contextIsolation: false
+                }
+              })
+              mainWindow2.loadFile(path.join(__dirname, 'setupTime.html'))
+                  mainWindow2.webContents.on('dom-ready', () => {
+                    WindowID = mainWindow2.id;
+                    vkb = new VirtualKeyboard(mainWindow2.webContents);
+                    mainWindow.destroy();
+                  })
 })

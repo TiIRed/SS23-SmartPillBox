@@ -11,14 +11,17 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
-    "bcryptjs": "2.4.3",
+    "bcryptjs": "^2.4.3",
     "dracula-ui": "^1.0.6",
     "electron-store": "^8.1.0",
+    "electron-virtual-keyboard": "^1.0.7",
+    "node-postgres": "^0.6.2",
+    "path": "^0.12.7",
     "pg": "^8.10.0",
     "python-shell": "^5.0.0",
     "sound-play": "^1.1.0"
   },
   "devDependencies": {
-    "electron": "24.1.1"
+    "electron": "^24.1.1"
   }
 }

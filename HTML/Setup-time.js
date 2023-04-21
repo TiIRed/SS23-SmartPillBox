@@ -1,7 +1,6 @@
 const { ipcRenderer } = require("electron");
 
-function errorChecking(){
-	let error = [];
+function onSub(){
 	
 	var Creds = {
 		fName: localStorage.getItem("fName"),

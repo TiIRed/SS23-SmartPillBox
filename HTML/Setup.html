@@ -1,44 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Setup</title>
-<link rel="stylesheet" href="./idle.css" >
-</head>
+	<head>
+	<title>Setup</title>
+	<link rel="stylesheet" href="./idle.css" >
+	<link rel="stylesheet" href="node_modules/dracula-ui/styles/dracula-ui.css" />
+	</head>
 <body>
 
 <form id="Register" onsubmit="errorChecking()">
-	<label for="fname">First Name</label>
-	<input name="fname" id="fname"><br><br>
-
-	<label for="lname">Last Name</label>
-	<input name="lname" id="lname"><br><br>
-
-	<label for="email">E-Mail</label>
-	<input name="email" id="email"><br><br>
-
-	<label for="pswd">Password</label>
-	<input type="password" name="pswd" id="pswd"><br><br>
-	
-	<label for="pswd2">Confirm Password</label>
-	<input type="password" name="pswd2" id="pswd2"><br><br>
-
-	<input type="checkbox" name="mBox" onclick="inOff('mTime')">
-	<label for="mTime">Morning Time</label>
-	<input type="time" name="mTime" id="mTime"> <br><br>
-
-	<input type="checkbox" name="mdBox" onclick="inOff('mdTime')">
-	<label for="mdTime">Mid Day Time</label>
-	<input type="time" id="mdTime" name="mdTime"> <br><br>
-
-	<input type="checkbox" name="eBox" onclick="inOff('eTime')">
-	<label for="eTime">Evening Time</label>
-	<input type="time" id="eTime" name="eTime"> <br><br>
-
-
+	<div>
+		<div>
+			<label for="mTime">Morning Time</label>
+			<input type="time" id="mTime" name="mTime"> <br><br>
+		</div>
+		<div>
+			<label for="mdTime">Mid Day Time</label>
+			<input type="time" id="mdTime" name="mdTime"> <br><br>
+		</div>
+		<div>
+			<label for="eTime">Evening Time</label>
+			<input type="time" id="eTime" name="eTime"> <br><br>
+		</div>
+	</div>
 	<input type="submit" value="Submit">
-
 </form>
 
-<script src="./Setup.js"></script>
+<script src="./Setup-time.js"></script>
 
 </body>
