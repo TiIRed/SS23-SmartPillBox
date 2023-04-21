@@ -3,10 +3,10 @@ const { ipcRenderer } = require("electron");
 function onSub(){
 	
 	var Creds = {
-		fName: localStorage.getItem("fName"),
-		lName: localStorage.getItem("lName"),
-		email: localStorage.getItem("email"),
-		pswd: localStorage.getItem("pswd"),
+		fName: sessionStorage.getItem("fName"),
+		lName: sessionStorage.getItem("lName"),
+		email: sessionStorage.getItem("email"),
+		pswd: sessionStorage.getItem("pswd"),
 		mTime: document.getElementById("mTime").value,
 		mdTime: document.getElementById("mdTime").value,
 		eTime: document.getElementById("eTime").value

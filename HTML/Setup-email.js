@@ -1,19 +1,30 @@
 const { ipcRenderer } = require("electron");
 var jQuery = $ = require('jquery');
+const path = require('path');
 require('electron-virtual-keyboard/client')(window, jQuery);
 
-function onLoad(){
-	ipcRenderer.send('key', 0);
-}
+var keyboard = $('input:text').keyboard();
 
 function onSub(){
 	email = document.getElementById("email").value
 
-	localStorage.setItem("email", email)
+	sessionStorage.setItem("email", email)
 
-	ipcRenderer.send('secret', 0)
+	ipcRenderer.send('eCheck', email);
 }
 
-ipcRenderer.on('keyreturn', () => {
-	var keyboard = $('input:text').keyboard();
+function onLoad(){
+	if(sessionStorage.getItem("email")){
+		window.location.href = path.join(__dirname = 'setupPswd.html');
+		return false;
+	}
+}
+
+ipcRenderer.on('eVerify', (event, data) => {
+	if(data){
+		window.location.href = path.join(__dirname = 'setupPswd.html');
+	}
+	else{
+		sessionStorage.removeItem("email")
+	}
 })

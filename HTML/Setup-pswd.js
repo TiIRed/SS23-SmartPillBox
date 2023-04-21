@@ -1,10 +1,9 @@
 const { ipcRenderer } = require("electron");
 var jQuery = $ = require('jquery');
+const path = require('path');
 require('electron-virtual-keyboard/client')(window, jQuery);
 
-function onLoad(){
-	ipcRenderer.send('key', 0);
-}
+var keyboard = $('input:password').keyboard();
 
 let error = []
 
@@ -17,12 +16,13 @@ function onSub(){
 	else{
 		pswd = document.getElementById("pswd").value
 		
-		localStorage.setItem("pswd", pswd)
+		sessionStorage.setItem("pswd", pswd)
 		
-		ipcRenderer.send('time', 0)
 	}
 }
 
-ipcRenderer.on('keyreturn', () => {
-	var keyboard = $('input:password').keyboard();
-})
+function onLoad(){
+	if(sessionStorage.getItem("pswd")){
+		window.location.href = path.join(__dirname = 'setupTime.html');
+	}
+}
