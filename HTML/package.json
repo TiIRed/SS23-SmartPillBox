@@ -3,7 +3,7 @@
   "productName": "HTML",
   "description": "My Electron application description",
   "keywords": [],
-  "main": "./main.js",
+  "main": "./Main.js",
   "version": "1.0.0",
   "author": "sfran",
   "scripts": {
