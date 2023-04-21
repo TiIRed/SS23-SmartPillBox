@@ -2,6 +2,8 @@ const { ipcRenderer } = require("electron");
 
 let times = []
 let clock = ""
+const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
 
 function clicky(){
 	location.href = "dispense.html"
@@ -19,6 +21,7 @@ function startTime(){
 	clock = h + ":" + m + ":" + s;
 
  	document.getElementById('head').innerHTML = clock;
+	document.getElementById('dow').innerHTML = weekday[today.getDay()]
 	prideWeek(clock);
 	setTimeout(startTime, 1000);
 	

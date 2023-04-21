@@ -123,6 +123,12 @@ ipcMain.on('Dispense', () => {
   })
 })
 
+ipcMain.on('Photo', () => {
+  PythonShell.run('photoman.py', null).then(messages => {
+    console.log("say cheese");
+  })
+})
+
 //send time inputs to idle screen
 ipcMain.on('timeRequest', async () => {
   mainWindow = BrowserWindow.fromId(WindowID);
