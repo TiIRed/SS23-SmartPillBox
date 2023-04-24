@@ -8,7 +8,12 @@ var keyboard = $('input:password').keyboard();
 let error = []
 
 function onSub(){
-	if(document.getElementById("pswd").value != document.getElementById("pswd2").value){
+	if(document.getElementById("pswd").value == undefined){
+		error.push("Please Enter Your Password")
+		console.log(error)
+		ipcRenderer.send('pass', error);
+	}
+	else if(document.getElementById("pswd").value != document.getElementById("pswd2").value){
 		error.push("Your Passwords do not match")
 		console.log(error)
 		ipcRenderer.send('pass', error);

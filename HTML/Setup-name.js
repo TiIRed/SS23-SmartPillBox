@@ -6,13 +6,18 @@ require('electron-virtual-keyboard/client')(window, jQuery);
 var keyboard = $('input:text').keyboard();
 
 function onSub(){
-	first = document.getElementById("fname").value
+	if(document.getElementById("fName").value == undefined ||  document.getElementById("lName").value == undefined){
+		error.push("Please Enter Your Name")
+		console.log(error)
+		ipcRenderer.send('pass', error);
+	}
+	else{first = document.getElementById("fname").value
 	last = document.getElementById("lname").value
 
 	sessionStorage.setItem("fName", first)
 	sessionStorage.setItem("lName", last)
 	
-	return false
+	return false}
 }
 
 function onLoad(){
@@ -20,3 +25,4 @@ function onLoad(){
 		window.location.href = path.join(__dirname = 'setupEmail.html');
 	}
 }
+
