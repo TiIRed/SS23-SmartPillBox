@@ -16,6 +16,10 @@ body{
 
 }
 
+#arrow{
+	font-size: 100px;
+}
+
 #butdiv{
 
 	display: flex;

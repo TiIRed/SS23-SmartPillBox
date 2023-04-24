@@ -1,22 +1,34 @@
 const { ipcRenderer } = require("electron");
 
-function initial(){
+let deets = []
 
+function initial(){
+	dispense();
 	fillMedList();
 	startTime();
 }
 
 
 function Click(){
-	dispense();
 	location.href = "idle.html";
 }
 
 function dispense(){
-
 	ipcRenderer.send('Dispense', 0);
-
 }
+
+ipcRenderer.on("dispensed", () => {
+	const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	const d = new Date();
+	let day = weekday[d.getDay()];
+
+	deets[2] = day;
+	deets[0] = localStorage.getItem("current")
+	deets[1] = "test"
+	ipcRenderer.send('Photo', deets)
+})
+
+ipcRenderer.on("cheese", 0)
 
 
 function startTime() {
@@ -49,15 +61,13 @@ function editTime(button, hours, mins){
 
 //pass array of medications into function to add list into html to be displayed
 function fillMedList(){
-
 	med = document.getElementById('med');
 
 	const medlist = ["medication a", "medication b", "medication c"];
 
 	for (var i = 0; i < medlist.length; i++) {
-		med.innerHTML += "<li>" + medlist[i] + "</li>";
+		med.innerHTML += '<li class="drac-text drac-text-black">' + medlist[i] + "</li>";
 	}
-
 }
 
 

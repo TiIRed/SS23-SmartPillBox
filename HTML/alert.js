@@ -5,7 +5,6 @@ function Click(){
 }
 
 function startTime() {
-	
 
 	const today = new Date();
 	let h = today.getHours();
@@ -18,14 +17,7 @@ function startTime() {
 	setTimeout(startTime, 1000);
  	
  }
-
- function letsgetitstarted(){
-	console.log("sending")
-	ipcRenderer.send('alert', 0);
-	startTime();
- }
  	
-
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
   return i;
