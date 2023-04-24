@@ -3,11 +3,9 @@ const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 const VirtualKeyboard = require('electron-virtual-keyboard');
 const Store = require('electron-store');
 const path = require('path');
-const Speaker = require("speaker");
 const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
 const {PythonShell} = require('python-shell');
-var Lame = require('node-lame').Lame;
 const client = new Client({
     user: 'sfransen',
     host: '10.227.14.61',
@@ -16,15 +14,6 @@ const client = new Client({
     port: 5432,
 })
 client.connect()
-const speaker = new Speaker({
-  channels: 2,
-  bitDepth: 16,
-  sampleRate: 44100
-});
-const encoder = new Lame({
-  output: "buffer",
-  bitrate: 192,
-}).setFile(path.join(__dirname, "alert.mp3"))
 
 let vkb
 
@@ -134,9 +123,9 @@ ipcMain.on('Dispense', () => {
   })
 })
 
-ipcMain.on('Photo', (data) => {
+ipcMain.on('Photo', (error, data) => {
   let options = {
-    args: [data[0], data[1], data[2]]
+    args: [data.time, data.username, data.day]
   }
   PythonShell.run('photoman.py', options).then(messages => {
     mainWindow.webContents.send('cheese', 0);

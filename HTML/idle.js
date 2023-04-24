@@ -42,7 +42,7 @@ function prideWeek(clock){
 			if(clock < (times[2])){
 				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button2bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
-				localStorage.setItem("current", Midday);
+				localStorage.setItem("current", "Midday");
 			}
 		}
 		else{
@@ -50,13 +50,13 @@ function prideWeek(clock){
 				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button3bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
-				localStorage.setItem("current", Evening);
+				localStorage.setItem("current", "Evening");
 			}
 			else{
 				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
 				document.getElementById("button3bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				localStorage.setItem("current", Morning);
+				localStorage.setItem("current", "Morning");
 			}
 		}
 	}
@@ -64,7 +64,7 @@ function prideWeek(clock){
 
 
 function grabTimes(){
-	localStorage.setItem("current", Morning);
+	localStorage.setItem("current", "Morning");
 	startTime();
 	ipcRenderer.send('timeRequest', 0)	
 }

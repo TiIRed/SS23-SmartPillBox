@@ -1,6 +1,6 @@
 const { ipcRenderer } = require("electron");
 
-let deets = []
+let deets
 
 function initial(){
 	dispense();
@@ -22,9 +22,11 @@ ipcRenderer.on("dispensed", () => {
 	const d = new Date();
 	let day = weekday[d.getDay()];
 
-	deets[2] = day;
-	deets[0] = localStorage.getItem("current")
-	deets[1] = "test"
+	var deets = {
+		day: day,
+		time: localStorage.getItem("current"),
+		username: "test"
+	}
 	ipcRenderer.send('Photo', deets)
 })
 
