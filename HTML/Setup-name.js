@@ -19,6 +19,7 @@ function onSub(){
 	sessionStorage.setItem("lName", last)
 	
 	return false}
+	return false}
 }
 
 function onLoad(){
@@ -26,4 +27,6 @@ function onLoad(){
 		window.location.href = path.join(__dirname = 'setupEmail.html');
 	}
 }
+
+
 

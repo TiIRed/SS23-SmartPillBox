@@ -125,7 +125,7 @@ ipcMain.on('Dispense', () => {
 
 ipcMain.on('Photo', (error, data) => {
   let options = {
-    args: [data.time, store.get('user.email'), data.day]
+    args: [data.time, data.username, data.day]
   }
   PythonShell.run('photoman.py', options).then(messages => {
     mainWindow.webContents.send('cheese', 0);
@@ -166,4 +166,17 @@ ipcMain.on('eCheck', (error, data) => {
       mainWindow.webContents.send('eVerify', true);
     }
   })
+})
+
+ipcMain.on('medList', () => {
+  client.query(`SELECT * From logins WHERE fname = `)
+
+
+
+
+
+
+
+
+
 })
