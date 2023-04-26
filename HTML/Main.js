@@ -3,13 +3,12 @@ const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 const VirtualKeyboard = require('electron-virtual-keyboard');
 const Store = require('electron-store');
 const path = require('path');
-const sound = require("sound-play");
 const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
 const {PythonShell} = require('python-shell');
 const client = new Client({
     user: 'sfransen',
-    host: '10.227.219.220',
+    host: '10.227.14.61',
     database: 'pillbox',
     password: '$tephenO0',
     port: 5432,
@@ -46,7 +45,7 @@ async function createWindow () {
   vkb = new VirtualKeyboard(mainWindow.webContents)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -118,14 +117,18 @@ ipcMain.on('pass', (event, data) => {
 
 //Dispense Meds
 ipcMain.on('Dispense', () => {    
+  mainWindow = BrowserWindow.fromId(WindowID);
   PythonShell.run('step_1.py', null).then(messages => {
-    console.log("movin");
+    mainWindow.webContents.send('dispensed', 0);
   })
 })
 
-ipcMain.on('Photo', () => {
-  PythonShell.run('photoman.py', null).then(messages => {
-    console.log("say cheese");
+ipcMain.on('Photo', (error, data) => {
+  let options = {
+    args: [data.time, store.get('user.email'), data.day]
+  }
+  PythonShell.run('photoman.py', options).then(messages => {
+    mainWindow.webContents.send('cheese', 0);
   })
 })
 
@@ -137,13 +140,6 @@ ipcMain.on('timeRequest', async () => {
   eve = await store.get('user.eTime')
   times = [morn, mid, eve]
   mainWindow.webContents.send('sets', times);
-})
-
-//plays alert sound file
-ipcMain.on('alert', () => {
-  console.log("Sephiroth")
-  soundpath = path.join(__dirname, "alert.mp3");
-  sound.play(soundpath, 1)
 })
 
 ipcMain.on('eCheck', (error, data) => {

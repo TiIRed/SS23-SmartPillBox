@@ -6,11 +6,16 @@ require('electron-virtual-keyboard/client')(window, jQuery);
 var keyboard = $('input:text').keyboard();
 
 function onSub(){
-	email = document.getElementById("email").value
+	if(document.getElementById("email").value == undefined){
+		error.push("Please Enter Your Username")
+		console.log(error)
+		ipcRenderer.send('pass', error);
+	}
+	else{email = document.getElementById("email").value
 
 	sessionStorage.setItem("email", email)
 
-	ipcRenderer.send('eCheck', email);
+	ipcRenderer.send('eCheck', email);}
 }
 
 function onLoad(){
