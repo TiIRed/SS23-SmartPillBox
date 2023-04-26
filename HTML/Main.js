@@ -167,3 +167,16 @@ ipcMain.on('eCheck', (error, data) => {
     }
   })
 })
+
+ipcMain.on('medList', () => {
+  client.query(`SELECT * From logins WHERE fname = `)
+
+
+
+
+
+
+
+
+
+})
