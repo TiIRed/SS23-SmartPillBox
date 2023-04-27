@@ -33,7 +33,7 @@ async function createWindow () {
 
   // and load the index.html of the app.
   if(checkName == undefined){
-    mainWindow.loadFile('setupName.html')
+    mainWindow.loadFile('setupMeds.html')
   }
   else{
     mainWindow.loadFile('idle.html')
@@ -65,39 +65,27 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on("Credentials", async function(event, data) {
-hashedPass = await bcrypt.hash(data.pswd, 10);
+  hashedPass = await bcrypt.hash(data.pswd, 10);
 
-client.query(`INSERT INTO logins (fname, lname, email, password, mtime, mdtime, etime)VALUES ($1, $2, $3, $4, $5, $6, $7)RETURNING id, password`,[data.fName, data.lName, data.email, hashedPass, data.mTime, data.mdTime, data.eTime], (err,results)=> {
-  if (err){
-    throw err;
-  }
-  })
-  store.set({
-    'user.fname': data.fName,
-    'user.lname': data.lName,
-    'user.email': data.email,
-    'user.pass': hashedPass,
-    'user.mTime': data.mTime,
-    'user.mdTime': data.mdTime,
-    'user.eTime': data.eTime
-  })
-  
-  mainWindow = BrowserWindow.fromId(WindowID);
-  mainWindow2 = new BrowserWindow({
-    fullscreen: true,
-    frame: false,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-      contextIsolation: false
+  client.query(`INSERT INTO logins (fname, lname, email, password, mtime, mdtime, etime)VALUES ($1, $2, $3, $4, $5, $6, $7)RETURNING id, password`,[data.fName, data.lName, data.email, hashedPass, data.mTime, data.mdTime, data.eTime], (err,results)=> {
+    if (err){
+      throw err;
     }
-  })
-  mainWindow2.loadFile(path.join(__dirname, 'idle.html'))
-  mainWindow2.webContents.on('dom-ready', () => {
-    WindowID = mainWindow2.id;
-    mainWindow.destroy();
-  })
-      }  
+    })
+    store.set({
+      'user.fname': data.fName,
+      'user.lname': data.lName,
+      'user.email': data.email,
+      'user.pass': hashedPass,
+      'user.mTime': data.mTime,
+      'user.mdTime': data.mdTime,
+      'user.eTime': data.eTime
+    })
+    
+    mainWindow = BrowserWindow.fromId(WindowID);
+    mainWindow.webContents.send('goodCred', 0);
+    
+  }  
 )
 
 //alerts that passwords do not match

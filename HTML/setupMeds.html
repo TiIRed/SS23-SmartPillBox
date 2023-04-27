@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Setup</title>
+	<link rel="stylesheet" href="./idle.css" >
+	<link rel="stylesheet" href="node_modules/dracula-ui/styles/dracula-ui.css" />
+	<link rel="stylesheet" href="node_modules/kioskboard/dist/kioskboard-2.3.0.min.css" />
+</head>
+<body onLoad="onLoad()">
+
+<form id="Register">
+	<div>
+		<input type="text" placeholder="Medication Name" name="med" id="med" class="drac-input drac-input-white drac-text-white drac-my-sm" data-kioskboard-type="keyboard" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
+		<input type="number" placeholder="Medication Quantity" id="medNum" name="medNum" class="drac-input drac-input-white drac-text-white drac-my-sm" data-kioskboard-type="numpad" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
+		<div style="position: relative">
+			<select name="Time" id="Time" class="drac-select drac-select-white" required>
+				<option value="default" selected="">Select Time</option>
+				<option value="Morning">Morning</option>
+				<option value="Midday">Midday</option>
+				<option value="Evening">Evening</option>
+			</select>
+		</div>
+		<div style="display: flex; flex-direction: column" class="drac-box">
+			<div class="drac-box drac-mb-xs">
+				<input type="checkbox" name="Sunday" id="Sunday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<label for="Sunday" class="drac-text drac-text-black">Sunday</label>
+			</div>
+			<div class="drac-box drac-mb-xs">
+				<input type="checkbox" name="Monday" id="Monday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<label for="Monday" class="drac-text drac-text-black">Monday</label>
+			</div>
+			<div class="drac-box drac-mb-xs">
+				<input type="checkbox" name="Tuesday" id="Tuesday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<label for="Tuesday" class="drac-text drac-text-black">Tuesday</label>
+			</div>
+			<div class="drac-box drac-mb-xs">
+				<input type="checkbox" name="Wednesday" id="Wednesday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<label for="Wednesday" class="drac-text drac-text-black">Wednesday</label>
+			</div>
+			<div class="drac-box drac-mb-xs">
+				<input type="checkbox" name="Thursday" id="Thursday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<label for="Thursday" class="drac-text drac-text-black">Thursday</label>
+			</div>
+			<div class="drac-box drac-mb-xs">
+				<input type="checkbox" name="Friday" id="Friday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<label for="Friday" class="drac-text drac-text-black">Friday</label>
+			</div>
+			<div class="drac-box drac-mb-xs">
+				<input type="checkbox" name="Saturday" id="Saturday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<label for="Saturday" class="drac-text drac-text-black">Saturday</label>
+			</div>
+		</div>
+		<input type="button" value="Add Another" class="drac-btn drac-text-white drac-line-height drac-bg-black" onclick="onAdd()">
+		<input type="submit" value="Done" class="drac-btn drac-text-white drac-line-height drac-bg-black" onclick="onSub()">
+	</div>
+</form>
+
+<script src="node_modules/kioskboard/dist/kioskboard-2.3.0.min.js"></script>
+<script src="./Setup-meds.js"></script>
+
+</body>
