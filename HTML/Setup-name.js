@@ -23,7 +23,7 @@ function onLoad(){
 	if(sessionStorage.getItem("fName")){
 		location.href = path.join(__dirname, 'setupEmail.html');
 	}
-	KioskBoard.run('.drac-input', {
+	KioskBoard.run('.js-keyboard-input', {
 		keysArrayOfObjects: null,
 		keysJsonUrl: path.join(__dirname, "/node_modules/kioskboard/dist/kioskboard-keys-english.json"),
 		theme: 'light'

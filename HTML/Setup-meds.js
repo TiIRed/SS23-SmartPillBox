@@ -8,18 +8,51 @@ function onSub(){
 	time = document.getElementById("Time").value
 	days = []
 	
-	var markedCheckbox = document.getElementById("day");
+	var markedCheckbox = document.getElementsByName("day");
 	for (var checkbox of markedCheckbox){
 		if(checkbox.checked){
-			days.push(checkbox.value)
+			days.push(checkbox.id)
 		}
 	}
-	print(days)
-	location.href = path.join(__dirname, 'setupTime.html');
+	var medQuery = {
+		name: medName,
+		qnt: qnt,
+		time: time,
+		days: days,
+		next: 'idle.html'
+	}
+
+	ipcRenderer.send('Meds', medQuery);
+	ipcRenderer.on('goodMeds', (event, data) => {
+		location.href = path.join(__dirname, data);
+	})
+	
 }
 
 function onAdd() {
+	medName = document.getElementById("med").value
+	qnt = document.getElementById("medNum").value
+	time = document.getElementById("Time").value
+	days = []
+	
+	var markedCheckbox = document.getElementsByName("day");
+	for (var checkbox of markedCheckbox){
+		if(checkbox.checked){
+			days.push(checkbox.id)
+		}
+	}
+	var medQuery = {
+		name: medName,
+		qnt: qnt,
+		time: time,
+		days: days,
+		next: 'setupMeds.html'
+	}
 
+	ipcRenderer.send('Meds', medQuery);
+	ipcRenderer.on('goodMeds', (event, data) => {
+		location.href = path.join(__dirname, data);
+	})
 }
 
 function onLoad(){

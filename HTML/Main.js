@@ -33,7 +33,7 @@ async function createWindow () {
 
   // and load the index.html of the app.
   if(checkName == undefined){
-    mainWindow.loadFile('setupMeds.html')
+    mainWindow.loadFile('setupName.html')
   }
   else{
     mainWindow.loadFile('idle.html')
@@ -151,6 +151,16 @@ ipcMain.on('eCheck', (error, data) => {
   })
 })
 
-ipcMain.on('medList', () => {
-  client.query(`SELECT * From logins WHERE fname = `)
-})
+ipcMain.on("Meds", async function(event, data) {
+
+  client.query(`INSERT INTO medications (name, quantity, time_name, days, username) VALUES ($1, $2, $3, $4, $5)`,[data.name, data.qnt, data.time, data.days, store.get('user.email')], (err,results)=> {
+    if (err){
+      throw err;
+    }
+    })
+
+    mainWindow = BrowserWindow.fromId(WindowID);
+    mainWindow.webContents.send('goodMeds', data.next);
+    
+  }  
+)
