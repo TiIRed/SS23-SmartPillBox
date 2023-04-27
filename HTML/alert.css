@@ -3,9 +3,11 @@ body{
 	background-color: white;
 	display: flex;
 	flex-direction: column;
-	height:480px;
-	width:800px;
+	font-family: Courier New, monospace;
+	height:100vh;
+	width:100vw;
 	margin:auto;
+
 }
 
 #head{
@@ -30,25 +32,29 @@ body{
 	align-content: center;
 }
 
+#button1bod{
+
+	display: flex;
+	justify-content: center;
+	background-color: yellow;
+	font-size: 30px;
+
+}
 
 .button{
-	
-	display:flex;
-	height: 75px;
-	width: 200px;
-	margin: auto;
-	outline-style: solid;
+	display: flex;
+
+	height: 80px;
+	width: 30%;
 	border-radius: 10px;
-	outline-width: 2px;
 	outline-color: black;
-	background-color: blue;
-	box-shadow: 5px 5px lightgray;
 
-	justify-content: space-around;
+	justify-content: center;
+	align-items: center;
 
+	background-color: lightgreen;
 	cursor: default;
 	user-select: none;
-
 }
 
 h1{

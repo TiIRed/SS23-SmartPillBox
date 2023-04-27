@@ -1,0 +1,31 @@
+body{
+
+}
+
+input{
+
+	background-color: #414558;
+	width: 98%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	margin-left: 1%;
+	border-radius: 10px;
+
+
+	height:35px;
+	font-size: 20px;
+	color: white;
+
+}
+
+#submit{
+
+	height:35px;
+	width: fit-content;
+	border-radius: 5px;
+	background-color: black;
+ 	color:	white;
+ 	font-size: 20px;
+
+
+}
