@@ -1,6 +1,5 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
-const VirtualKeyboard = require('electron-virtual-keyboard');
 const Store = require('electron-store');
 const path = require('path');
 const { Client } = require("pg");
@@ -15,8 +14,6 @@ const client = new Client({
     port: 5432,
 })
 client.connect()
-
-let vkb
 
 const store = new Store();
 
@@ -41,9 +38,6 @@ async function createWindow () {
   else{
     mainWindow.loadFile('idle.html')
   }
-
-  //Virtual Keyboard instance
-  vkb = new VirtualKeyboard(mainWindow.webContents)
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools()
