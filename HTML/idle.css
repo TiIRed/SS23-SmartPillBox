@@ -2,8 +2,9 @@ body{
 
 	display: flex;
 	flex-direction: column;
-	height:480px;
-	width:780px;
+	font-family: Courier New, monospace;
+	height:100vh;
+	width:100vw;
 	margin:auto;
 
 }
@@ -38,9 +39,7 @@ body{
 
 span{
 
-	font-family: Courier New, monospace;
 	font-size: 25px;
-
 
 }
 
