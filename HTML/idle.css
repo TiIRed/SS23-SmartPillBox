@@ -18,7 +18,11 @@ body{
 }
 
 #dow{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	font-size: 30px;
+
 }
 
 
@@ -32,15 +36,29 @@ body{
 
 }
 
+span{
+
+	font-family: Courier New, monospace;
+	font-size: 25px;
+
+
+}
+
 .button{
 	
+	display: flex;
+
 	height: 80px;
-	outline-style: solid;
+	width: 30%;
 	border-radius: 10px;
-	outline-width: 2px;
 	outline-color: black;
-	background-color: blue;
-	box-shadow: 5px 5px lightgray;
+
+	justify-content: center;
+	align-items: center;
+
+	background-color: lightgreen;
+	/*background-color: #ff6863;*/
+	/*background-color: yellow;*/
 
 
 	cursor: default;

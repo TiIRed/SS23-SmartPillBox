@@ -40,22 +40,22 @@ function prideWeek(clock){
 	if (clock > (times[0])){
 		if(clock < (times[1])){
 			if(clock < (times[2])){
-				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button2bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
+				document.getElementById("button1bod").backgroundColor = "lightgreen"
+				document.getElementById("button2bod").backgroundColor = "yellow"
 				localStorage.setItem("current", "Midday");
 			}
 		}
 		else{
 			if(clock < (times[2])){
-				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button3bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
+				document.getElementById("button1bod").backgroundColor = "lightgreen"
+				document.getElementById("button2bod").backgroundColor = "lightgreen"
+				document.getElementById("button3bod").backgroundColor = "yellow";
 				localStorage.setItem("current", "Evening");
 			}
 			else{
-				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button3bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+					document.getElementById("button1bod").backgroundColor = "lightgreen"
+				document.getElementById("button2bod").backgroundColor = "lightgreen"
+				document.getElementById("button3bod").backgroundColor = "lightgreen";
 				localStorage.setItem("current", "Morning");
 			}
 		}
