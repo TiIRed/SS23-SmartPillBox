@@ -1,9 +1,6 @@
 const { ipcRenderer } = require("electron");
-var jQuery = $ = require('jquery');
+const KioskBoard = require('kioskboard');
 const path = require('path');
-require('electron-virtual-keyboard/client')(window, jQuery);
-
-var keyboard = $('input:password').keyboard();
 
 let error = []
 
@@ -20,14 +17,17 @@ function onSub(){
 	}
 	else{
 		pswd = document.getElementById("pswd").value
-		
-		sessionStorage.setItem("pswd", pswd)
-		
+		sessionStorage.setItem("pswd", pswd)	
 	}
 }
 
 function onLoad(){
 	if(sessionStorage.getItem("pswd")){
-		window.location.href = path.join(__dirname = 'setupTime.html');
+		location.href = path.join(__dirname, 'setupTime.html');
 	}
+	KioskBoard.run('.drac-input', {
+		keysArrayOfObjects: null,
+		keysJsonUrl: path.join(__dirname, "/node_modules/kioskboard/dist/kioskboard-keys-english.json"),
+		theme: 'light'
+	})
 }

@@ -19,10 +19,10 @@ function startTime(){
  	s = checkTime(s); 	
 
 	clock = h + ":" + m + ":" + s;
+	manipTime(clock);
 
  	document.getElementById('head').innerHTML = clock;
 	document.getElementById('dow').innerHTML = weekday[today.getDay()]
-	manipTime(clock);
 	setTimeout(startTime, 1000);
 	
 }

@@ -1,9 +1,6 @@
 const { ipcRenderer } = require("electron");
-var jQuery = $ = require('jquery');
+const KioskBoard = require('kioskboard');
 const path = require('path');
-require('electron-virtual-keyboard/client')(window, jQuery);
-
-var keyboard = $('input:text').keyboard();
 
 function onSub(){
 	if(document.getElementById("fname").value == undefined ||  document.getElementById("lname").value == undefined){
@@ -24,8 +21,13 @@ function onSub(){
 
 function onLoad(){
 	if(sessionStorage.getItem("fName")){
-		window.location.href = path.join(__dirname = 'setupEmail.html');
+		location.href = path.join(__dirname, 'setupEmail.html');
 	}
+	KioskBoard.run('.drac-input', {
+		keysArrayOfObjects: null,
+		keysJsonUrl: path.join(__dirname, "/node_modules/kioskboard/dist/kioskboard-keys-english.json"),
+		theme: 'light'
+	})
 }
 
 
