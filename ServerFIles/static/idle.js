@@ -1,3 +1,2 @@
-function grabPhoto(){
-    document.getElementById("ItemPreview").src = '{{ filename }}';
-}
+document.getElementById('Time').value = '{{ time }}'
+document.getElementById('Day').value = '{{ day }}'

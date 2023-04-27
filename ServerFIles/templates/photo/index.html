@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Photos{% endblock %}</h1>
+    <form method="post" onload="onLoad()">
+        <select name="Day" id="Day" required>
+            <option value="default" selected="">Select Day</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+        </select>
+        <br><br>
+        <select name="Time" id="Time" required>
+            <option value="default" selected="">Select Time</option>
+            <option value="Morning">Morning</option>
+            <option value="Midday">Midday</option>
+            <option value="Evening">Evening</option>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
+
+
+{% block content %}
+        <img id="ItemPreview" src= '{{ filename }}' width="930">
+{% endblock %}
+</html>
+
+<script type="text/javascript">
+    function onLoad() {
+        document.getElementById("Time").value = '{{ time }}';
+        document.getElementById("Day").value = '{{ day }}';
+    }
+</script>
+
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
