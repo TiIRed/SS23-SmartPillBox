@@ -20,7 +20,7 @@ const store = new Store();
 async function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    fullscreen: true,
+    fullscreen: false,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -36,11 +36,11 @@ async function createWindow () {
     mainWindow.loadFile('setupMeds.html')
   }
   else{
-    mainWindow.loadFile('dispense.html')
+    mainWindow.loadFile('idle.html')
   }
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

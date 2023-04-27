@@ -34,7 +34,7 @@ body{
 	width: 700px;
 	margin:auto;
 	align-content: center;
-
+	margin-bottom: 15px;
 }
 
 span{
@@ -58,7 +58,6 @@ span{
 	background-color: lightgreen;
 	/*background-color: #ff6863;*/
 	/*background-color: yellow;*/
-
 
 	cursor: default;
 	user-select: none;

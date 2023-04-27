@@ -5,12 +5,17 @@ const path = require('path');
 function onSub(){
 	medName = document.getElementById("med").value
 	qnt = document.getElementById("medNum").value
+	time = document.getElementById("Time").value
+	days = []
 	
-
-	sessionStorage.setItem("fName", first)
-	sessionStorage.setItem("lName", last)
-	
-	return false
+	var markedCheckbox = document.getElementById("day");
+	for (var checkbox of markedCheckbox){
+		if(checkbox.checked){
+			days.push(checkbox.value)
+		}
+	}
+	print(days)
+	location.href = path.join(__dirname, 'setupTime.html');
 }
 
 function onAdd() {

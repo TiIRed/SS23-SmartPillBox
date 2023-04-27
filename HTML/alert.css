@@ -57,6 +57,19 @@ body{
 	user-select: none;
 }
 
+#register{
+	display:flex;
+	flex-direction: row;
+	width: 40vw;
+}
+
+.section{
+
+	display: flex;
+	flex-direction: column;
+
+}
+
 h1{
 
 	height:fit-content;	
