@@ -1,3 +1,0 @@
-#!C:\Users\sfran\Documents\GitHub\SS23-SmartPillBox\ServerFIles\.venv\Scripts\python.exe
-from ldapdomaindump import pretty
-pretty.main()

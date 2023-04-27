@@ -2,7 +2,9 @@ import os
 import photo
 import auth
 
-from flask import Flask, render_template
+from flask import Flask
+
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 def create_app(test_config=None):
     # create and configure the app
@@ -29,5 +31,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     app.register_blueprint(photo.bp)
     app.add_url_rule('/', endpoint='index')
+
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
     return app

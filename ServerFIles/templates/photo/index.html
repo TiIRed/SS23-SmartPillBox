@@ -2,7 +2,7 @@
 
 {% block header %}
 <h1>{% block title %}Photos{% endblock %}</h1>
-    <form method="post">
+    <form method="post" onload="onLoad()">
         <select name="Day" id="Day" required>
             <option value="default" selected="">Select Day</option>
             <option value="Sunday">Sunday</option>
@@ -30,5 +30,11 @@
 {% endblock %}
 </html>
 
-<script src="static/idle.js"></script>
+<script type="text/javascript">
+    function onLoad() {
+        document.getElementById("Time").value = '{{ time }}';
+        document.getElementById("Day").value = '{{ day }}';
+    }
+</script>
+
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">

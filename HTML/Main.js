@@ -23,7 +23,7 @@ async function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     fullscreen: false,
-    frame: true,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
