@@ -1,31 +1,13 @@
 import os
-import time
-import base64
-import psycopg2
-from threading import Thread
+import photo
+import auth
+
 from flask import Flask, render_template
-
-def get_db_connection():
-    conn = psycopg2.connect(
-        host="localhost",
-        database="pillbox",
-        user="sfransen",
-        password="$tephenO0"
-    )
-    return conn
-
-timestr = time.strftime("%Y%m%d-%H%M%S")
-filename = "./static/photos/"+timestr+".jpg"
-filename2 = "static/photos/"+timestr+".jpg"
-
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-    )
+    app.config.from_mapping(SECRET_KEY='Ladybug')
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -39,18 +21,13 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
- 
-    @app.route('/')
-    def index():
-        conn = get_db_connection()
-        cur = conn.cursor()
-        cur.execute('SELECT data FROM photos ORDER BY id DESC;')
-        photo = cur.fetchall()
-        with open(("./" + filename), "wb")as fh:
-            fh.write(photo[0][0])
-        cur.close()
-        conn.close()
-        return render_template('index.html', filename=filename)
 
+    @app.route('/hello')
+    def hello():
+        return 'Hello, World!'
+
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(photo.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
