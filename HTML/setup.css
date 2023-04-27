@@ -2,7 +2,7 @@ body{
 
 }
 
-input{
+input, section{
 
 	background-color: #414558;
 	width: 98%;
@@ -18,7 +18,30 @@ input{
 
 }
 
-#submit{
+form{
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
+}
+#inputs{
+
+	display: flex;
+	flex-direction: row;
+
+}
+
+.section{
+
+	width:40%;
+	margin:auto;
+	margin-top: 1%;
+
+}
+
+#submit, #add{
+
 
 	height:35px;
 	width: fit-content;
@@ -27,5 +50,10 @@ input{
  	color:	white;
  	font-size: 20px;
 
+ 	marin:auto;
 
+}
+
+.submit{
+	margin-left: 5%;
 }

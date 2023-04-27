@@ -33,7 +33,7 @@ async function createWindow () {
 
   // and load the index.html of the app.
   if(checkName == undefined){
-    mainWindow.loadFile('setupMeds.html')
+    mainWindow.loadFile('setupEmail.html')
   }
   else{
     mainWindow.loadFile('idle.html')
