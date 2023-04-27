@@ -18,8 +18,8 @@ function onSub(){
 	sessionStorage.setItem("fName", first)
 	sessionStorage.setItem("lName", last)
 	
-	return false}
-	return false}
+	return false
+}
 }
 
 function onLoad(){
