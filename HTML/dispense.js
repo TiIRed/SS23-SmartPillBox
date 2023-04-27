@@ -24,8 +24,7 @@ ipcRenderer.on("dispensed", () => {
 
 	var deets = {
 		day: day,
-		time: localStorage.getItem("current"),
-		username: "test"
+		time: localStorage.getItem("current")
 	}
 	ipcRenderer.send('Photo', deets)
 })

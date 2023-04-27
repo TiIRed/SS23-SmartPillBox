@@ -19,43 +19,46 @@ function startTime(){
  	s = checkTime(s); 	
 
 	clock = h + ":" + m + ":" + s;
+	manipTime(clock);
 
  	document.getElementById('head').innerHTML = clock;
 	document.getElementById('dow').innerHTML = weekday[today.getDay()]
-	prideWeek(clock);
 	setTimeout(startTime, 1000);
 	
 }
 
-function prideWeek(clock){
+function manipTime(clock){
 	
 	if(clock.startsWith("1:") || clock.startsWith("2:") || clock.startsWith("3:") || clock.startsWith("4:") || clock.startsWith("5:") || clock.startsWith("6:") || clock.startsWith("7:") || clock.startsWith("8:") || clock.startsWith("9:")){
 		clock = "0" + clock;
 	}
 
 	if (clock == (times[0] + ":00") || clock == (times[1] + ":00") || clock == (times[2] + ":00")){
-		window.location.href = "alert.html"
+		location.href = "alert.html"
 	}
 	
 	if (clock > (times[0])){
 		if(clock < (times[1])){
 			if(clock < (times[2])){
-				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button2bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
+				document.getElementById("button1bod").backgroundColor = "lightgreen"
+				document.getElementById("button2bod").backgroundColor = "yellow"
+				localStorage.setItem("current", "Midday");
 				localStorage.setItem("current", "Midday");
 			}
 		}
 		else{
 			if(clock < (times[2])){
-				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button3bod").className = "drac-box drac-bg-yellow drac-rounded-lg drac-p-md"
+				document.getElementById("button1bod").backgroundColor = "lightgreen"
+				document.getElementById("button2bod").backgroundColor = "lightgreen"
+				document.getElementById("button3bod").backgroundColor = "yellow";
+				localStorage.setItem("current", "Evening");
 				localStorage.setItem("current", "Evening");
 			}
 			else{
-				document.getElementById("button1bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button2bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
-				document.getElementById("button3bod").className = "drac-box drac-bg-green drac-rounded-lg drac-p-md"
+					document.getElementById("button1bod").backgroundColor = "lightgreen"
+				document.getElementById("button2bod").backgroundColor = "lightgreen"
+				document.getElementById("button3bod").backgroundColor = "lightgreen";
+				localStorage.setItem("current", "Morning");
 				localStorage.setItem("current", "Morning");
 			}
 		}
@@ -64,6 +67,7 @@ function prideWeek(clock){
 
 
 function grabTimes(){
+	localStorage.setItem("current", "Morning");
 	localStorage.setItem("current", "Morning");
 	startTime();
 	ipcRenderer.send('timeRequest', 0)	
@@ -80,22 +84,4 @@ ipcRenderer.on('sets', (event, data) => {
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
   return i;
-}
-
-function formatTime(hours, mins){
-
-	if(hours > 12){
-		hours -= 12;
-	}
-
-	if(hours < 10){
-		hours = "0" + hours;
-	}
-	
-	if(mins < 10){
-		mins = "0" + mins;
-	}
-	
-	return hours+""+mins;
-
 }

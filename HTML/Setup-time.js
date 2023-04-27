@@ -1,7 +1,8 @@
 const { ipcRenderer } = require("electron");
 
+const path = require('path');
+
 function onSub(){
-	
 	var Creds = {
 		fName: sessionStorage.getItem("fName"),
 		lName: sessionStorage.getItem("lName"),
@@ -11,18 +12,9 @@ function onSub(){
 		mdTime: document.getElementById("mdTime").value,
 		eTime: document.getElementById("eTime").value
 	}
-
-	// var Creds = {
-	// 	fName: document.getElementById("fname").value,
-	// 	lName: document.getElementById("lname").value,
-	// 	email: document.getElementById("email").value,
-	// 	pswd: document.getElementById("pswd").value,
-	// 	pswd2: document.getElementById("pswd2").value,
-	// 	mTime: document.getElementById("mTime").value,
-	// 	mdTime: document.getElementById("mdTime").value,
-	// 	eTime: document.getElementById("eTime").value,
-	// }
-	
 	ipcRenderer.send('Credentials', Creds)
-	
 };
+
+ipcRenderer.on('goodCred', () =>{
+	location.href = path.join(__dirname, "setupMeds.html")
+})

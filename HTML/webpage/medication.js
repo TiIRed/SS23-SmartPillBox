@@ -10,7 +10,7 @@ function addMed(){
 	unitIn = document.getElementById("unit");
 
 	const para = document.createElement("li");
-	const node = document.createTextNode(medIn.value+", "+quantIn.value+unitIn.value);
+	const node = document.createTextNode(medIn.value+" "+quantIn.value+" "+unitIn.value);
 	para.appendChild(node);
 	para.id = "med" + mednum;
 	mednum += 1;
@@ -18,7 +18,7 @@ function addMed(){
 
 
 	medlist.appendChild(para);
-	medarr = para.innerHTML.split(",");	
+	medarr = para.innerHTML.split(" ");	
 	console.log(medarr);
 
 

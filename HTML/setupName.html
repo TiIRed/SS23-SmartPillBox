@@ -3,19 +3,20 @@
 <head>
 	<title>Setup</title>
 	<link rel="stylesheet" href="./idle.css" >
-	<link rel="stylesheet" href="node_modules/dracula-ui/styles/dracula-ui.css" />
-	<link href="node_modules/electron-virtual-keyboard/virtual-keyboard.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="./setup.css">
+	<link rel="stylesheet" href="node_modules/kioskboard/dist/kioskboard-2.3.0.min.css" />
 </head>
 <body onLoad="onLoad()">
 
 <form id="Register">
-	<div>
-		<input type="text" placeholder="First Name" name="fname" id="fname" class="drac-input drac-input-white drac-text-white drac-my-sm">
-		<input type="text" placeholder="Last Name" name="lname" id="lname" class="drac-input drac-input-white drac-text-white drac-my-sm">
-		<input type="submit" value="Submit" class="drac-btn drac-text-white drac-line-height drac-bg-black" onclick="onSub()">
+	<div id="data">
+		<input type="text" placeholder="First Name" name="fname" id="fname" data-kioskboard-type="keyboard" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
+		<input type="text" placeholder="Last Name" name="lname" id="lname" data-kioskboard-type="keyboard" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
+		<input type="submit" value="Submit" id="submit" onclick="onSub()">
 	</div>
 </form>
 
+<script src="node_modules/kioskboard/dist/kioskboard-2.3.0.min.js"></script>
 <script src="./Setup-name.js"></script>
 
 </body>
