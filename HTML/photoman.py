@@ -25,30 +25,8 @@ def LED(pin, value):
         print("LED ON")
 
     # GPIO.cleanup()
-import os
-
-pin = 17,18
-
-def LED(pin, value):
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(pin, GPIO.OUT)
-    
-    if value == 0:
-        GPIO.output(pin, GPIO.LOW)
-        print("LED LOW")
-        GPIO.cleanup()
-    else: 
-        GPIO.output(pin, GPIO.HIGH)
-        print("LED ON")
-
-    # GPIO.cleanup()
 
 if len(sys.argv) > 1:
-
-# GPIO.output(LED, GPIO.LOW)
-# print("LED LOW")
-
-    LED(pin,1)
 # GPIO.output(LED, GPIO.LOW)
 # print("LED LOW")
 
@@ -78,12 +56,6 @@ if len(sys.argv) > 1:
         f = image.read()
         j = list(f)
 
-
-    cur.execute("SELECT id FROM photos WHERE time = %s AND username = %s AND dayofweek = %s", (sys.argv[1], sys.argv[2], sys.argv[3]))
-    photos = cur.fetchall()
-    if photos:
-        cur.execute("UPDATE photos SET data = %s WHERE time = %s AND username = %s AND dayofweek = %s", (f,sys.argv[1], sys.argv[2], sys.argv[3]))
-
     cur.execute("SELECT id FROM photos WHERE time = %s AND username = %s AND dayofweek = %s", (sys.argv[1], sys.argv[2], sys.argv[3]))
     photos = cur.fetchall()
     if photos:
@@ -91,15 +63,11 @@ if len(sys.argv) > 1:
     #send to DB
     else:
         cur.execute("INSERT INTO photos (time, data, username, dayofweek) VALUES (%s, %s,%s, %s)", (sys.argv[1], f, sys.argv[2],sys.argv[3]))
-    else:
-        cur.execute("INSERT INTO photos (time, data, username, dayofweek) VALUES (%s, %s,%s, %s)", (sys.argv[1], f, sys.argv[2],sys.argv[3]))
 
     #close currsor
     conn.commit()
     cur.close()
     conn.close()
-    os.remove(filename)
-    GPIO.cleanup()
     os.remove(filename)
     GPIO.cleanup()
 else:

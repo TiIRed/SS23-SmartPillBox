@@ -7,7 +7,7 @@ var keyboard = $('input:text').keyboard();
 
 function onSub(){
 	if(document.getElementById("email").value == undefined){
-		error.push("Please Enter Your E-Mail")
+		error.push("Please Enter Your Username")
 		console.log(error)
 		ipcRenderer.send('pass', error);
 	}
