@@ -1,29 +1,27 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
-const VirtualKeyboard = require('electron-virtual-keyboard');
 const Store = require('electron-store');
 const path = require('path');
 const { Client } = require("pg");
 const bcrypt = require('bcryptjs');
 const {PythonShell} = require('python-shell');
+
 const client = new Client({
     user: 'sfransen',
-    host: '10.227.14.61',
+    host: '10.203.156.73',
     database: 'pillbox',
     password: '$tephenO0',
     port: 5432,
 })
 client.connect()
 
-let vkb
-
 const store = new Store();
 
 async function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    fullscreen: false,
-    frame: true,
+    fullscreen: true,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -40,9 +38,6 @@ async function createWindow () {
   else{
     mainWindow.loadFile('idle.html')
   }
-
-  //Virtual Keyboard instance
-  vkb = new VirtualKeyboard(mainWindow.webContents)
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools()
@@ -89,8 +84,8 @@ client.query(`INSERT INTO logins (fname, lname, email, password, mtime, mdtime, 
   
   mainWindow = BrowserWindow.fromId(WindowID);
   mainWindow2 = new BrowserWindow({
-    fullscreen: false,
-    frame: true,
+    fullscreen: true,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -125,7 +120,7 @@ ipcMain.on('Dispense', () => {
 
 ipcMain.on('Photo', (error, data) => {
   let options = {
-    args: [data.time, data.username, data.day]
+    args: [data.time, store.get('user.email'), data.day]
   }
   PythonShell.run('photoman.py', options).then(messages => {
     mainWindow.webContents.send('cheese', 0);
@@ -170,13 +165,4 @@ ipcMain.on('eCheck', (error, data) => {
 
 ipcMain.on('medList', () => {
   client.query(`SELECT * From logins WHERE fname = `)
-
-
-
-
-
-
-
-
-
 })

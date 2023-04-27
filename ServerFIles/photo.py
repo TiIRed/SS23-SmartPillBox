@@ -31,6 +31,8 @@ def index():
     if g.user is None:
         return redirect(url_for('auth.login'))
     filename = "static/photos/default.jpg"
+    time = "default"
+    day = "default"
     if request.method == 'POST':
         conn = get_db_connection()
         cur = conn.cursor()
@@ -48,4 +50,4 @@ def index():
                 fh.write(photo[0])
             cur.close()
             conn.close()
-    return render_template('photo/index.html', filename=filename)
+    return render_template('photo/index.html', filename=filename, time=time, day=day)

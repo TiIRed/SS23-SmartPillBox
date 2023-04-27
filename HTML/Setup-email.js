@@ -1,13 +1,11 @@
 const { ipcRenderer } = require("electron");
-var jQuery = $ = require('jquery');
 const path = require('path');
-require('electron-virtual-keyboard/client')(window, jQuery);
 
-var keyboard = $('input:text').keyboard();
+const KioskBoard = require('kioskboard');
 
 function onSub(){
 	if(document.getElementById("email").value == undefined){
-		error.push("Please Enter Your E-Mail")
+		error.push("Please Enter Your Username")
 		console.log(error)
 		ipcRenderer.send('pass', error);
 	}
@@ -23,6 +21,11 @@ function onLoad(){
 		window.location.href = path.join(__dirname = 'setupPswd.html');
 		return false;
 	}
+	KioskBoard.run('.drac-input', {
+		keysArrayOfObjects: null,
+		keysJsonUrl: path.join(__dirname, "/node_modules/kioskboard/dist/kioskboard-keys-english.json"),
+		theme: 'light'
+	})
 }
 
 ipcRenderer.on('eVerify', (event, data) => {

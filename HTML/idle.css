@@ -2,8 +2,8 @@ body{
 
 	display: flex;
 	flex-direction: column;
-	height:500px;
-	width:800px;
+	height:480px;
+	width:780px;
 	margin:auto;
 
 }
@@ -30,7 +30,7 @@ body{
 
 	display: flex;
 	justify-content: space-between;
-	width: 500px;
+	width: 700px;
 	margin:auto;
 	align-content: center;
 

@@ -1,8 +1,10 @@
 import io
 import psycopg2
 import RPi.GPIO as GPIO 
+import RPi.GPIO as GPIO 
 from PIL import Image
 from picamera2 import Picamera2, Preview
+from libcamera import controls
 from libcamera import controls
 import time
 import sys
@@ -25,7 +27,6 @@ def LED(pin, value):
     # GPIO.cleanup()
 
 if len(sys.argv) > 1:
-
 # GPIO.output(LED, GPIO.LOW)
 # print("LED LOW")
 
@@ -34,17 +35,16 @@ if len(sys.argv) > 1:
     filename = timestr + ".jpg"
     #save picture
     picam2 = Picamera2()
-    picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous, "AfRange": controls.AfRangeEnum.Macro, "AfSpeed": controls.AfSpeedEnum.Fast,"AfTrigger": controls.AfTriggerEnum.Start, "AfWindows": [523,210,842,370]})
+    picam2.set_controls({"AfMode": controls.AfModeEnum.Auto, "AfRange": controls.AfRangeEnum.Macro, "AfSpeed": controls.AfSpeedEnum.Fast})
     camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)})
     picam2.configure(camera_config)
-    time.sleep(6)
     picam2.start()
     picam2.capture_file(filename) 
 
 
     # create PSQL Query Object
     conn = psycopg2.connect(
-        host="10.227.14.61",
+        host="10.203.156.73",
         database="pillbox",
         user="sfransen",
         password="$tephenO0"
@@ -55,7 +55,6 @@ if len(sys.argv) > 1:
     with open(filename, "rb")as image:
         f = image.read()
         j = list(f)
-
 
     cur.execute("SELECT id FROM photos WHERE time = %s AND username = %s AND dayofweek = %s", (sys.argv[1], sys.argv[2], sys.argv[3]))
     photos = cur.fetchall()
