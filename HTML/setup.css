@@ -1,7 +1,3 @@
-body{
-
-}
-
 input, section{
 
 	background-color: #414558;
@@ -29,14 +25,14 @@ form{
 
 	display: flex;
 	flex-direction: row;
-
+	
 }
 
 .section{
 
 	width:40%;
 	margin:auto;
-	margin-top: 1%;
+	/*margin-top: 1%;*/
 
 }
 
@@ -50,10 +46,24 @@ form{
  	color:	white;
  	font-size: 20px;
 
- 	marin:auto;
+ 	margin:auto;
 
 }
 
 .submit{
 	margin-left: 5%;
+}
+
+
+.vcenter{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+
+}
+
+ul{
+	margin: auto;
+	width: fit-content;
 }
