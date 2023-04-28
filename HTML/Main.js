@@ -8,7 +8,7 @@ const {PythonShell} = require('python-shell');
 
 const client = new Client({
     user: 'sfransen',
-    host: '10.203.156.73',
+    host: 'localhost',
     database: 'pillbox',
     password: '$tephenO0',
     port: 5432,
@@ -164,12 +164,10 @@ ipcMain.on("Meds", async function(event, data) {
 
 ipcMain.on("medReq", async function(event,data) {
   console.log(timeNow + " " + dayNow + " " + store.get('user.email'))
-  client.query(`SELECT (quantity, name) FROM medications WHERE username = $1 AND time_name = $2 AND $3=ANY(days)`,[store.get('user.email'), timeNow, dayNow], (err,results) => {
-    if(err){
-      throw err;
-    }
-    mainWindow = BrowserWindow.fromId(WindowID)
-    mainWindow.webContents.send('medList', results.rows)
+  const results = await client.query({
+    text: (`SELECT (quantity, name) FROM medications WHERE username = $1 AND time_name = $2 AND $3=ANY(days)`,[store.get('user.email'), timeNow, dayNow]),
+    rowMode: 'array'
   })
-
+    mainWindow = BrowserWindow.fromId(WindowID)
+    mainWindow.webContents.send('medList', results)
 })
