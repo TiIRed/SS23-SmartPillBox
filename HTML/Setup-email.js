@@ -21,7 +21,7 @@ function onLoad(){
 		window.location.href = path.join(__dirname = 'setupPswd.html');
 		return false;
 	}
-	KioskBoard.run('.drac-input', {
+	KioskBoard.run('.js-keyboard-input', {
 		keysArrayOfObjects: null,
 		keysJsonUrl: path.join(__dirname, "/node_modules/kioskboard/dist/kioskboard-keys-english.json"),
 		theme: 'light'
@@ -29,7 +29,7 @@ function onLoad(){
 }
 
 ipcRenderer.on('eVerify', (event, data) => {
-	if(data){
+	if(data == true){
 		window.location.href = path.join(__dirname = 'setupPswd.html');
 	}
 	else{

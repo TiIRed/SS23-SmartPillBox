@@ -4,13 +4,7 @@ let deets
 
 function initial(){
 	dispense();
-	fillMedList();
 	startTime();
-}
-
-
-function Click(){
-	location.href = "idle.html";
 }
 
 function dispense(){
@@ -29,7 +23,9 @@ ipcRenderer.on("dispensed", () => {
 	ipcRenderer.send('Photo', deets)
 })
 
-ipcRenderer.on("cheese", 0)
+ipcRenderer.on("cheese", () => {
+	location.href = "confirm.html";
+})
 
 
 function startTime() {
@@ -61,15 +57,14 @@ function editTime(button, hours, mins){
 
 
 //pass array of medications into function to add list into html to be displayed
-function fillMedList(){
-	med = document.getElementById('med');
-
-	const medlist = ["medication a", "medication b", "medication c"];
-
-	for (var i = 0; i < medlist.length; i++) {
-		med.innerHTML += '<li class="drac-text drac-text-black">' + medlist[i] + "</li>";
-	}
-}
+ipcRenderer.on('medList', (event, data) => {
+    mList = document.getElementById("med")
+    for (medication in data){
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(medication[2] + " " + medication[1]))
+        mList.appendChild(li)
+    }
+})
 
 
 

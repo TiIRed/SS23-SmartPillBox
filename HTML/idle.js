@@ -40,36 +40,38 @@ function manipTime(clock){
 	if (clock > (times[0])){
 		if(clock < (times[1])){
 			if(clock < (times[2])){
-				document.getElementById("button1bod").backgroundColor = "lightgreen"
-				document.getElementById("button2bod").backgroundColor = "yellow"
-				localStorage.setItem("current", "Midday");
+				document.getElementById("button1bod").style.backgroundColor = "lightgreen"
+				document.getElementById("button2bod").style.backgroundColor = "#ffff80"
 				localStorage.setItem("current", "Midday");
 			}
 		}
 		else{
 			if(clock < (times[2])){
-				document.getElementById("button1bod").backgroundColor = "lightgreen"
-				document.getElementById("button2bod").backgroundColor = "lightgreen"
-				document.getElementById("button3bod").backgroundColor = "yellow";
-				localStorage.setItem("current", "Evening");
+				document.getElementById("button1bod").style.backgroundColor = "lightgreen"
+				document.getElementById("button2bod").style.backgroundColor = "lightgreen"
+				document.getElementById("button3bod").style.backgroundColor = "#ffff80"
 				localStorage.setItem("current", "Evening");
 			}
 			else{
-					document.getElementById("button1bod").backgroundColor = "lightgreen"
-				document.getElementById("button2bod").backgroundColor = "lightgreen"
-				document.getElementById("button3bod").backgroundColor = "lightgreen";
-				localStorage.setItem("current", "Morning");
+				document.getElementById("button1bod").style.backgroundColor = "lightgreen"
+				document.getElementById("button2bod").style.backgroundColor = "lightgreen"
+				document.getElementById("button3bod").style.backgroundColor = "lightgreen"
 				localStorage.setItem("current", "Morning");
 			}
 		}
+	}
+	else{
+		document.getElementById("button1bod").style.backgroundColor = "#ffff80"
+		document.getElementById("button2bod").style.backgroundColor = "#ff9580"
+		document.getElementById("button3bod").style.backgroundColor = "#ff9580"
+		localStorage.setItem("current", "Morning");
 	}
 }
 
 
 function grabTimes(){
-	localStorage.setItem("current", "Morning");
-	localStorage.setItem("current", "Morning");
-	startTime();
+	localStorage.setItem("current", "Morning")
+	startTime()
 	ipcRenderer.send('timeRequest', 0)	
 }
 

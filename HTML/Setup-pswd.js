@@ -25,7 +25,7 @@ function onLoad(){
 	if(sessionStorage.getItem("pswd")){
 		location.href = path.join(__dirname, 'setupTime.html');
 	}
-	KioskBoard.run('.drac-input', {
+	KioskBoard.run('.js-keyboard-input', {
 		keysArrayOfObjects: null,
 		keysJsonUrl: path.join(__dirname, "/node_modules/kioskboard/dist/kioskboard-keys-english.json"),
 		theme: 'light'

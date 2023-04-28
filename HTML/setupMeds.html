@@ -3,22 +3,24 @@
 <head>
 	<title>Setup</title>
 	<link rel="stylesheet" href="./idle.css" >
+	<link rel="stylesheet" type="text/css" href="./setup.css">
 	<link rel="stylesheet" href="node_modules/dracula-ui/styles/dracula-ui.css" />
 	<link rel="stylesheet" href="node_modules/kioskboard/dist/kioskboard-2.3.0.min.css" />
 </head>
 <body onLoad="onLoad()">
 
 <form id="Register">
-	<div class="section">
-		<input type="text" placeholder="Medication Name" name="med" id="med" class="drac-input drac-input-white drac-text-white drac-my-sm" data-kioskboard-type="keyboard" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
-		<input type="number" placeholder="Medication Quantity" id="medNum" name="medNum" class="drac-input drac-input-white drac-text-white drac-my-sm" data-kioskboard-type="numpad" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
-		<select name="Time" id="Time" class="drac-select drac-select-white" required>
-			<option value="default" selected="">Select Time</option>
-			<option value="Morning">Morning</option>
-			<option value="Midday">Midday</option>
-			<option value="Evening">Evening</option>
-		</select>
-	</div>
+	<div id="inputs">
+		<div class="section">
+			<input type="text" placeholder="Medication Name" name="med" id="med" class="drac-input drac-input-white drac-text-white drac-my-sm" data-kioskboard-type="keyboard" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
+			<input type="number" placeholder="Medication Quantity" id="medNum" name="medNum" class="drac-input drac-input-white drac-text-white drac-my-sm" data-kioskboard-type="numpad" data-kioskboard-placement="bottom" data-kioskboard-specialcharacters="false">
+			<select name="Time" id="Time" class="drac-select drac-select-white" required>
+				<option value="default" selected="">Select Time</option>
+				<option value="Morning">Morning</option>
+				<option value="Midday">Midday</option>
+				<option value="Evening">Evening</option>
+			</select>
+		</div>
 		<div class="drac-box section">
 			<div class="drac-box drac-mb-xs">
 				<input type="checkbox" name="day" id="Sunday" class="drac-checkbox drac-checkbox-purple" check =""/>
@@ -29,7 +31,7 @@
 				<label for="Monday" class="drac-text drac-text-black">Monday</label>
 			</div>
 			<div class="drac-box drac-mb-xs">
-				<input type="checkbox" name="dat" id="Tuesday" class="drac-checkbox drac-checkbox-purple" check =""/>
+				<input type="checkbox" name="day" id="Tuesday" class="drac-checkbox drac-checkbox-purple" check =""/>
 				<label for="Tuesday" class="drac-text drac-text-black">Tuesday</label>
 			</div>
 			<div class="drac-box drac-mb-xs">
@@ -49,9 +51,12 @@
 				<label for="Saturday" class="drac-text drac-text-black">Saturday</label>
 			</div>
 		</div>
-		<input type="button" value="Add Another" class="drac-btn drac-text-white drac-line-height drac-bg-black" onclick="onAdd()">
-		<input type="submit" value="Done" class="drac-btn drac-text-white drac-line-height drac-bg-black" onclick="onSub()">
-	
+	</div>
+
+
+		<input id="add" type="button" value="Add Another" class="submit drac-btn drac-text-white drac-line-height drac-bg-black" onclick="onAdd()">
+		<input id="submit" type="submit" value="Done" class="submit drac-btn drac-text-white drac-line-height drac-bg-black" onclick="onSub()">
+
 </form>
 
 <script src="node_modules/kioskboard/dist/kioskboard-2.3.0.min.js"></script>

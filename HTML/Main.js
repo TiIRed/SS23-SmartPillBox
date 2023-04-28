@@ -33,7 +33,7 @@ async function createWindow () {
 
   // and load the index.html of the app.
   if(checkName == undefined){
-    mainWindow.loadFile('setupMeds.html')
+    mainWindow.loadFile('setupName.html')
   }
   else{
     mainWindow.loadFile('idle.html')
@@ -81,10 +81,8 @@ ipcMain.on("Credentials", async function(event, data) {
       'user.mdTime': data.mdTime,
       'user.eTime': data.eTime
     })
-    
     mainWindow = BrowserWindow.fromId(WindowID);
     mainWindow.webContents.send('goodCred', 0);
-    
   }  
 )
 
@@ -110,8 +108,10 @@ ipcMain.on('Photo', (error, data) => {
   let options = {
     args: [data.time, store.get('user.email'), data.day]
   }
+  global.timeNow = data.time;
+  global.dayNow = data.day;
   PythonShell.run('photoman.py', options).then(messages => {
-    mainWindow.webContents.send('cheese', 0);
+    mainWindow.webContents.send('cheese', );
   })
 })
 
@@ -151,6 +151,25 @@ ipcMain.on('eCheck', (error, data) => {
   })
 })
 
-ipcMain.on('medList', () => {
-  client.query(`SELECT * From logins WHERE fname = `)
+ipcMain.on("Meds", async function(event, data) {
+  client.query(`INSERT INTO medications (name, quantity, time_name, days, username) VALUES ($1, $2, $3, $4, $5)`,[data.name, data.qnt, data.time, data.days, store.get('user.email')], (err,results)=> {
+    if (err){
+      throw err;
+    }
+    })
+    mainWindow = BrowserWindow.fromId(WindowID);
+    mainWindow.webContents.send('goodMeds', data.next);
+  }  
+)
+
+ipcMain.on("medReq", async function(event,data) {
+  console.log(timeNow + " " + dayNow + " " + store.get('user.email'))
+  client.query(`SELECT (quantity, name) FROM medications WHERE username = $1 AND time_name = $2 AND $3=ANY(days)`,[store.get('user.email'), timeNow, dayNow], (err,results) => {
+    if(err){
+      throw err;
+    }
+    mainWindow = BrowserWindow.fromId(WindowID)
+    mainWindow.webContents.send('medList', results.rows)
+  })
+
 })

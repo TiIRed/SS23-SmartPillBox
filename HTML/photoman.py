@@ -1,14 +1,8 @@
-import io
 import psycopg2
 import RPi.GPIO as GPIO 
-import RPi.GPIO as GPIO 
-from PIL import Image
-from picamera2 import Picamera2, Preview
 from libcamera import controls
-from libcamera import controls
-import time
+from picamera2 import Picamera2
 import sys
-import os
 
 pin = 17,18
 
@@ -31,8 +25,7 @@ if len(sys.argv) > 1:
 # print("LED LOW")
 
     LED(pin,1)
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-    filename = timestr + ".jpg"
+    filename = "thumbnail.jpg"
     #save picture
     picam2 = Picamera2()
     picam2.set_controls({"AfMode": controls.AfModeEnum.Auto, "AfRange": controls.AfRangeEnum.Macro, "AfSpeed": controls.AfSpeedEnum.Fast})
@@ -68,7 +61,6 @@ if len(sys.argv) > 1:
     conn.commit()
     cur.close()
     conn.close()
-    os.remove(filename)
     GPIO.cleanup()
 else:
     print("pass arguments such that photoman.py time username dayofweek ")
