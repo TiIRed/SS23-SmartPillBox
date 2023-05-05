@@ -175,7 +175,7 @@ ipcMain.on("medReq", async function(event,data) {
   })
     mainWindow = BrowserWindow.fromId(WindowID)
     mainWindow.webContents.send('medList', results.rows)
-
+})
 //Dispense Meds
 ipcMain.on('dispose', () => {    
   mainWindow = BrowserWindow.fromId(WindowID);
