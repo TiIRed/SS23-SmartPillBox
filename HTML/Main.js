@@ -8,7 +8,7 @@ const {PythonShell} = require('python-shell');
 
 const client = new Client({
     user: 'sfransen',
-    host: '10.203.156.73',
+    host: 'localhost',
     database: 'pillbox',
     password: '$tephenO0',
     port: 5432,
@@ -157,21 +157,21 @@ ipcMain.on("Meds", async function(event, data) {
   }  
 )
 
-ipcMain.on("timeReq", async function(event,data) {
+ipcMain.on("medReq", async function(event,data) {
+  //console.log(timeNow + " " + dayNow + " " + store.get('user.email'))
+  
+  que = ('SELECT * FROM medications WHERE username = '+"'SFRAN'"+' AND time_name = '+ "'Morning'"+' AND '+ "'Thursday'"+' = ANY(days)')
+  
+  const results = await client.query({
+    rowMode: 'array',
+    text: que,
+  })
     mainWindow = BrowserWindow.fromId(WindowID)
-    mainWindow.webContents.send('timeSend', timeNow)
-  })
-
-
-//remove thumbnail
-ipcMain.on('dispose', () => {    
-  PythonShell.run('dispose.py', null).then(messages => {
-  })
+    mainWindow.webContents.send('medList', results.rows)
 })
-
-ipcMain.on('lock', () => {    
-  PythonShell.run('servo.py', null).then(messages => {})
-  ipcMain.on('lockstop', () => {
-    PythonShell.kill()
+//Dispense Meds
+ipcMain.on('dispose', () => {    
+  mainWindow = BrowserWindow.fromId(WindowID);
+  PythonShell.run('dispose.py', null).then(messages => {
   })
 })
