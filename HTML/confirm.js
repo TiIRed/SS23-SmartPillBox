@@ -1,8 +1,8 @@
 const { ipcRenderer } = require("electron");
 
-function onLoad() {
-    ipcRenderer.send("medReq", 0)
-}
+// function onLoad() {
+//     ipcRenderer.send("medReq", 0)
+// }
 
 ipcRenderer.on('medList', (event, data) => {
     mList = document.getElementById("medList")
@@ -13,3 +13,8 @@ ipcRenderer.on('medList', (event, data) => {
         mList.appendChild(li)
     }
 })
+
+function Clicky() {
+    ipcRenderer.send('dispose', 0)
+    location.href = "idle.html"
+}

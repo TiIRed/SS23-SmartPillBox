@@ -5,6 +5,7 @@ let deets
 function initial(){
 	dispense();
 	startTime();
+	meds();
 }
 
 function dispense(){
@@ -57,14 +58,12 @@ function editTime(button, hours, mins){
 
 
 //pass array of medications into function to add list into html to be displayed
-ipcRenderer.on('medList', (event, data) => {
+function meds() {
     mList = document.getElementById("med")
-    for (medication in data){
         var li = document.createElement('li');
-        li.appendChild(document.createTextNode(medication[2] + " " + medication[1]))
+        li.appendChild(document.createTextNode("M&Ms"))
         mList.appendChild(li)
-    }
-})
+}
 
 
 

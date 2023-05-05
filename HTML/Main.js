@@ -20,7 +20,7 @@ const store = new Store();
 async function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    fullscreen: false,
+    fullscreen: true,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -40,7 +40,7 @@ async function createWindow () {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -172,4 +172,11 @@ ipcMain.on("medReq", async function(event,data) {
     mainWindow.webContents.send('medList', results.rows)
   })
 
+})
+
+//Dispense Meds
+ipcMain.on('dispose', () => {    
+  mainWindow = BrowserWindow.fromId(WindowID);
+  PythonShell.run('dispose.py', null).then(messages => {
+  })
 })
