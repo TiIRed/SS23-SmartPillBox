@@ -6,7 +6,15 @@ const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Sa
 
 
 function clicky(){
-	location.href = "alert.html"
+	location.href = "setupEmail.html"
+}
+
+function locky() {
+	ipcRenderer.send('lock', )
+}
+
+function lockStop() {
+	ipcRenderer.send('lockstop',)
 }
 
 function startTime(){
@@ -21,7 +29,9 @@ function startTime(){
 	clock = h + ":" + m + ":" + s;
 	manipTime(clock);
 
- 	document.getElementById('head').innerHTML = clock;
+	newClock = format(clock)
+
+ 	document.getElementById('head').innerHTML = newClock;
 	document.getElementById('dow').innerHTML = weekday[today.getDay()]
 	setTimeout(startTime, 1000);
 	
@@ -34,7 +44,7 @@ function manipTime(clock){
 	}
 
 	if (clock == (times[0] + ":00") || clock == (times[1] + ":00") || clock == (times[2] + ":00")){
-		location.href = "alert.html"
+		location.href = "dispense.html"
 	}
 	
 	if (clock > (times[0])){
@@ -71,6 +81,7 @@ function manipTime(clock){
 
 function grabTimes(){
 	localStorage.setItem("current", "Morning")
+	sessionStorage.removeItem("email")
 	startTime()
 	ipcRenderer.send('timeRequest', 0)	
 }
@@ -78,12 +89,38 @@ function grabTimes(){
 ipcRenderer.on('sets', (event, data) => {
 	times = data
 
-	document.getElementById("button1").textContent = times[0] + ":00";
-	document.getElementById("button2").innerHTML = times[1] + ":00";
-	document.getElementById("button3").innerText = times[2] + ":00";
+	document.getElementById("button1").textContent = format(times[0] + ":00");
+	document.getElementById("button2").innerHTML = format(times[1] + ":00");
+	document.getElementById("button3").innerText = format(times[2] + ":00");
 })
 
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
   return i;
+}
+
+function format(time) {
+	time = time.split(':'); // convert to array
+
+	// fetch
+	var hours = Number(time[0]);
+	var minutes = Number(time[1]);
+	var seconds = Number(time[2]);
+
+	// calculate
+	var timeValue;
+
+	if (hours > 0 && hours <= 12) {
+	timeValue= "" + hours;
+	} else if (hours > 12) {
+	timeValue= "" + (hours - 12);
+	} else if (hours == 0) {
+	timeValue= "12";
+	}
+	
+	timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
+	timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;  // get seconds
+	timeValue += (hours >= 12) ? " PM" : " AM";  // get AM/PM
+
+	return timeValue
 }

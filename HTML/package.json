@@ -1,13 +1,15 @@
 {
-  "name": "HTML",
-  "productName": "HTML",
-  "description": "My Electron application description",
+  "name": "DEMO",
+  "productName": "DEMO",
+  "description": "Pillbox Demonstration",
   "keywords": [],
   "main": "./Main.js",
   "version": "1.0.0",
   "author": "sfran",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -25,5 +27,16 @@
   },
   "devDependencies": {
     "electron": "^24.1.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        }
+      ]
+    }
   }
 }

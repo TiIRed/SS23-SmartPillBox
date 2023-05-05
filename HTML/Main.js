@@ -20,7 +20,7 @@ const store = new Store();
 async function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    fullscreen: false,
+    fullscreen: true,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -32,15 +32,10 @@ async function createWindow () {
   checkName = await store.get('user.fname')
 
   // and load the index.html of the app.
-  if(checkName == undefined){
-    mainWindow.loadFile('setupName.html')
-  }
-  else{
-    mainWindow.loadFile('idle.html')
-  }
+    mainWindow.loadFile('setupEmail.html')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -106,7 +101,7 @@ ipcMain.on('Dispense', () => {
 
 ipcMain.on('Photo', (error, data) => {
   let options = {
-    args: [data.time, store.get('user.email'), data.day]
+    args: [data.time, data.username, data.day]
   }
   global.timeNow = data.time;
   global.dayNow = data.day;
@@ -140,7 +135,7 @@ ipcMain.on('eCheck', (error, data) => {
       dialog.showMessageBox({
         type: 'error',
         buttons: ['Okay'],
-        title: 'E-mail Is Already In Use',
+        title: 'Username Is Already In Use',
         detail: 'Please Use Another E-mail'
       })
       mainWindow.webContents.send('eVerify', false);
@@ -162,14 +157,21 @@ ipcMain.on("Meds", async function(event, data) {
   }  
 )
 
-ipcMain.on("medReq", async function(event,data) {
-  console.log(timeNow + " " + dayNow + " " + store.get('user.email'))
-  client.query(`SELECT (quantity, name) FROM medications WHERE username = $1 AND time_name = $2 AND $3=ANY(days)`,[store.get('user.email'), timeNow, dayNow], (err,results) => {
-    if(err){
-      throw err;
-    }
+ipcMain.on("timeReq", async function(event,data) {
     mainWindow = BrowserWindow.fromId(WindowID)
-    mainWindow.webContents.send('medList', results.rows)
+    mainWindow.webContents.send('timeSend', timeNow)
   })
 
+
+//remove thumbnail
+ipcMain.on('dispose', () => {    
+  PythonShell.run('dispose.py', null).then(messages => {
+  })
+})
+
+ipcMain.on('lock', () => {    
+  PythonShell.run('servo.py', null).then(messages => {})
+  ipcMain.on('lockstop', () => {
+    PythonShell.kill()
+  })
 })

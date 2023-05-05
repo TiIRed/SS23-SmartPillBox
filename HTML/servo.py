@@ -10,10 +10,6 @@ GPIO.setup(servo_pin, GPIO.OUT)
 GPIO.setup(button_pin, GPIO.IN)
 
 pwm = GPIO.PWM(servo_pin, 50)
-# pwm.start(7.5)
-
-# pwm.ChangeDutyCycle(1)
-# time.sleep(1)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)

@@ -18,7 +18,7 @@ function onSub(){
 
 function onLoad(){
 	if(sessionStorage.getItem("email")){
-		window.location.href = path.join(__dirname = 'setupPswd.html');
+		window.location.href = path.join(__dirname = 'setupEmail.html');
 		return false;
 	}
 	KioskBoard.run('.js-keyboard-input', {
@@ -29,10 +29,5 @@ function onLoad(){
 }
 
 ipcRenderer.on('eVerify', (event, data) => {
-	if(data == true){
-		window.location.href = path.join(__dirname = 'setupPswd.html');
-	}
-	else{
-		sessionStorage.removeItem("email")
-	}
+		window.location.href = path.join(__dirname = 'dispense.html');
 })
