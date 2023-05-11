@@ -7,10 +7,10 @@ const bcrypt = require('bcryptjs');
 const {PythonShell} = require('python-shell');
 
 const client = new Client({
-    user: 'sfransen',
-    host: '10.203.156.73',
-    database: 'pillbox',
-    password: '$tephenO0',
+    user: 'enter database role here',
+    host: 'enter database IP address here',
+    database: 'enter database name here',
+    password: 'enter role password here',
     port: 5432,
 })
 client.connect()
@@ -31,7 +31,7 @@ async function createWindow () {
   global.WindowID = mainWindow.id;
   checkName = await store.get('user.fname')
 
-  // and load the index.html of the app.
+  //load idle if already undergone setup
   if(checkName == undefined){
     mainWindow.loadFile('setupName.html')
   }
@@ -62,8 +62,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+//store credentials
 ipcMain.on("Credentials", async function(event, data) {
   hashedPass = await bcrypt.hash(data.pswd, 10);
 
@@ -104,6 +103,7 @@ ipcMain.on('Dispense', () => {
   })
 })
 
+//run python to take picture and return cheese when done
 ipcMain.on('Photo', (error, data) => {
   let options = {
     args: [data.time, store.get('user.email'), data.day]
@@ -125,6 +125,7 @@ ipcMain.on('timeRequest', async () => {
   mainWindow.webContents.send('sets', times);
 })
 
+//check if email/username is already in use
 ipcMain.on('eCheck', (error, data) => {
   mainWindow = BrowserWindow.fromId(WindowID);
 
@@ -151,6 +152,7 @@ ipcMain.on('eCheck', (error, data) => {
   })
 })
 
+//insert meds into database
 ipcMain.on("Meds", async function(event, data) {
   client.query(`INSERT INTO medications (name, quantity, time_name, days, username) VALUES ($1, $2, $3, $4, $5)`,[data.name, data.qnt, data.time, data.days, store.get('user.email')], (err,results)=> {
     if (err){
@@ -162,9 +164,10 @@ ipcMain.on("Meds", async function(event, data) {
   }  
 )
 
+//pull all medications for username for the time and date of dispensing
 ipcMain.on("medReq", async function(event,data) {
   console.log(timeNow + " " + dayNow + " " + store.get('user.email'))
-  client.query(`SELECT (quantity, name) FROM medications WHERE username = $1 AND time_name = $2 AND $3=ANY(days)`,[store.get('user.email'), timeNow, dayNow], (err,results) => {
+  client.query(`SELECT (quantity, name) FROM medications WHERE username = '$1' AND time_name = '$2' AND '$3'=ANY(days)`,[store.get('user.email'), timeNow, dayNow], (err,results) => {
     if(err){
       throw err;
     }
@@ -174,7 +177,7 @@ ipcMain.on("medReq", async function(event,data) {
 
 })
 
-//Dispense Meds
+//Remove Thumbnail
 ipcMain.on('dispose', () => {    
   mainWindow = BrowserWindow.fromId(WindowID);
   PythonShell.run('dispose.py', null).then(messages => {
