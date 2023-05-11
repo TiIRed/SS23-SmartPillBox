@@ -5,10 +5,10 @@ import psycopg2
 
 def get_db_connection():
     conn = psycopg2.connect(
-        host="localhost",
-        database="pillbox",
-        user="sfransen",
-        password="$tephenO0"
+        host='enter database IP address here',
+        database='enter database name here',
+        user='enter database role here',
+        password='enter role password here'
     )
     return conn
 

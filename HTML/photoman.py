@@ -37,10 +37,10 @@ if len(sys.argv) > 1:
 
     # create PSQL Query Object
     conn = psycopg2.connect(
-        host="10.203.156.73",
-        database="pillbox",
-        user="sfransen",
-        password="$tephenO0"
+        host='enter database IP address here',
+        database='enter database name here',
+        user='enter database role here',
+        password='enter role password here'
     )
     cur = conn.cursor()
 
