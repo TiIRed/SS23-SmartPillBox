@@ -24,7 +24,7 @@ Next download pgAdmin at https://www.pgadmin.org/download/ this will let us mana
 Here you can create a new databse on the postgresql server that was just created. First I suggest creating a new user role that can access and edit the database.
 
 For the included code I used the following SQL script
-
+```
 CREATE ROLE sfransen WITH
     LOGIN
     SUPERUSER
@@ -33,9 +33,9 @@ CREATE ROLE sfransen WITH
     CREATEROLE
     NOREPLICATION
     PASSWORD Ladybug
-
+```
 Then I created the Database with:
-
+```
 CREATE DATABASE pillbox
     WITH
     OWNER = sfransen
@@ -47,9 +47,9 @@ CREATE DATABASE pillbox
     IS_TEMPLATE = False;
 GRANT TEMPORARY, CONNECT ON DATABASE pillbox TO PUBLIC;
 GRANT ALL ON DATABASE pillbox TO sfransen;
-
+```
 Finally I created the tables with:
-
+```
 CREATE TABLE IF NOT EXISTS public.logins
 (
     id bigint NOT NULL DEFAULT 'nextval('logins_id_seq'::regclass)',
@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS public.logins
 TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.logins
     OWNER to sfransen;
-
+```
+```
 CREATE TABLE IF NOT EXISTS public.medications
 (
     id bigint NOT NULL DEFAULT 'nextval('medications_id_seq'::regclass)',
@@ -82,7 +83,8 @@ CREATE TABLE IF NOT EXISTS public.medications
 TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.medications
     OWNER to sfransen;
-
+```
+```
 CREATE TABLE IF NOT EXISTS public.photos
 (
     id bigint NOT NULL DEFAULT 'nextval('photos_id_seq'::regclass)',
@@ -97,3 +99,4 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.photos
     OWNER to sfransen;
+```
